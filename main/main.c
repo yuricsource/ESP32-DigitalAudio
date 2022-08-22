@@ -274,18 +274,8 @@ void app_main()
     i2s_driver_install(I2S_NUM_0, &i2s_config, 0, NULL);
     i2s_set_pin(I2S_NUM_0, &i2s_mic_pins);
     int32_t raw_samples[SAMPLE_BUFFER_SIZE];
+    color_t green = hagl_color(0, 255, 0);
 
-    while(true)
-    {
-        size_t bytes_read = 0;
-        i2s_read(I2S_NUM_0, raw_samples, sizeof(int32_t) * SAMPLE_BUFFER_SIZE, &bytes_read, portMAX_DELAY);
-        int samples_read = bytes_read / sizeof(int32_t);
-        // dump the samples out to the serial channel.
-        for (int i = 0; i < samples_read; i++)
-        {
-            printf("%d\n", raw_samples[i]);
-        }
-    }
 
     ESP_LOGI(TAG, "SDK version: %s", esp_get_idf_version());
     ESP_LOGI(TAG, "Heap when starting: %d", esp_get_free_heap_size());
@@ -297,6 +287,34 @@ void app_main()
     hagl_set_clip_window(0, 20, DISPLAY_WIDTH - 1, DISPLAY_HEIGHT - 21);
 
     ESP_LOGI(TAG, "Heap after HAGL init: %d", esp_get_free_heap_size());
+
+    while(true)
+    {
+        size_t bytes_read = 0;
+        i2s_read(I2S_NUM_0, raw_samples, sizeof(int32_t) * SAMPLE_BUFFER_SIZE, &bytes_read, portMAX_DELAY);
+        int samples_read = bytes_read / sizeof(int32_t);
+        // dump the samples out to the serial channel.
+        //for (int i = 0; i < samples_read; i++)
+        {
+            //printf("%d\n", raw_samples[i]);
+        }                           // 135
+        //for (uint16_t x = 0; x < DISPLAY_WIDTH; x = x + 1) 
+        {
+            uint16_t x = 0;
+            #define PIXEL_SIZE 2
+                                     // 240
+            for (uint16_t y = 0; y < DISPLAY_HEIGHT; y = y + PIXEL_SIZE) 
+            {
+                int16_t data = ((raw_samples[y * 2]) / 1000000) + DISPLAY_WIDTH / 2;
+                printf("%d\n", data);
+                //hagl_put_pixel(data, y, green);
+                hagl_fill_rectangle(data, y, data + PIXEL_SIZE - 1, y + PIXEL_SIZE - 1, green);
+                x = x + PIXEL_SIZE;
+            }
+        }
+        hagl_flush();
+        hagl_clear_screen();
+    }
 
 #ifdef HAGL_HAL_USE_BUFFERING
     xTaskCreatePinnedToCore(flush_task, "Flush", 4096, NULL, 1, NULL, 0);

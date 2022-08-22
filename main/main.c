@@ -284,7 +284,7 @@ void app_main()
 
     hagl_init();
     /* Reserve 20 pixels in top and bottom for debug texts. */
-    hagl_set_clip_window(0, 20, DISPLAY_WIDTH - 1, DISPLAY_HEIGHT - 21);
+    // hagl_set_clip_window(0, 20, DISPLAY_WIDTH - 1, DISPLAY_HEIGHT - 21);
 
     ESP_LOGI(TAG, "Heap after HAGL init: %d", esp_get_free_heap_size());
 
@@ -302,14 +302,19 @@ void app_main()
         {
             uint16_t x = 0;
             #define PIXEL_SIZE 2
+            int16_t pData = DISPLAY_WIDTH / 2;
+            uint8_t pY = 0;
                                      // 240
             for (uint16_t y = 0; y < DISPLAY_HEIGHT; y = y + PIXEL_SIZE) 
             {
-                int16_t data = ((raw_samples[y * 2]) / 1000000) + DISPLAY_WIDTH / 2;
-                printf("%d\n", data);
+                int16_t data = ((raw_samples[y * 2]) / 500000) + DISPLAY_WIDTH / 2;
+                // printf("%d\n", data);
                 //hagl_put_pixel(data, y, green);
-                hagl_fill_rectangle(data, y, data + PIXEL_SIZE - 1, y + PIXEL_SIZE - 1, green);
+                //hagl_fill_rectangle(data, y, data + PIXEL_SIZE - 1, y + PIXEL_SIZE - 1, green);
+                hagl_draw_line(pData, pY, data, y, green);
                 x = x + PIXEL_SIZE;
+                pData = data;
+                pY = y;
             }
         }
         hagl_flush();

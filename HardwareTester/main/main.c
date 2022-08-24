@@ -1,29 +1,3 @@
-/*
-
-MIT No Attribution
-
-Copyright (c) 2020 Mika Tuupola
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
--cut-
-
-SPDX-License-Identifier: MIT-0
-
-*/
 
 #include "sdkconfig.h"
 
@@ -35,15 +9,6 @@ SPDX-License-Identifier: MIT-0
 #include <freertos/task.h>
 #include <freertos/event_groups.h>
 #include <esp_log.h>
-
-#ifdef CONFIG_DEVICE_HAS_AXP192
-#include <i2c_helper.h>
-#include <axp192.h>
-#endif /* CONFIG_DEVICE_HAS_AXP192 */
-#ifdef CONFIG_DEVICE_HAS_AXP202
-#include <i2c_helper.h>
-#include <axp202.h>
-#endif /* CONFIG_DEVICE_HAS_AXP202 */
 
 #include <font6x9.h>
 #include <aps.h>
@@ -111,6 +76,8 @@ i2s_pin_config_t i2sSpeakerPins = {
     .data_in_num = -1};
 
     int16_t raw_samples[SAMPLE_BUFFER_SIZE];
+
+
 void app_main()
 {
     i2s_driver_install(I2S_NUM_0, &i2s_config, 0, NULL);
@@ -128,6 +95,7 @@ void app_main()
     i2s_zero_dma_buffer(I2S_NUM_1);
     // start a task to write samples to the i2s peripheral
 
+
     while(true)
     {
         size_t bytes_read = 0;
@@ -140,11 +108,14 @@ void app_main()
 
         uint32_t total = 0;
         
+        for (uint16_t i = 0; i < bytes_read; i ++)
+            raw_samples[i] *= 16;
+
         while (bytes_read - total!= 0)
         {
             i2s_write(I2S_NUM_1, &raw_samples[total], bytes_read - total, &bytes_read_return, portMAX_DELAY);
             total += bytes_read_return;
-            ESP_LOGI(TAG, "total = %d\n", total);
+            // ESP_LOGI(TAG, "total = %d, fps=%d\n", total, (int)fps());
         }
                                     // 240
         for (uint16_t y = 0; y < DISPLAY_HEIGHT; y = y + PIXEL_SIZE) 

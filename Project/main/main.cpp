@@ -1,6 +1,4 @@
-
-#include "sdkconfig.h"
-
+#include <hagl_hal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,10 +11,11 @@
 #include <font6x9.h>
 #include <aps.h>
 #include <fps.h>
-#include <hagl_hal.h>
 #include <hagl.h>
+#include "sdkconfig.h"
 
-#include "driver/i2s.h" 
+
+#include "Hardware.h"
 
 // // you shouldn't need to change these settings
 // #define SAMPLE_BUFFER_SIZE 1024*2
@@ -75,6 +74,7 @@
 extern "C"
 void app_main()
 {
+    Hal::Hardware hardware;
     // i2s_driver_install(I2S_NUM_0, &i2s_config, 0, NULL);
     // i2s_set_pin(I2S_NUM_0, &i2s_mic_pins);
     // color_t green = hagl_color(0, 255, 0);

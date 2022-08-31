@@ -24,6 +24,13 @@ namespace Hal
 
     }
 
+    uint32_t DigitalMicrophone::GetAudioBuffer(uint16_t* buffer, size_t bufferSize, TickType_t timeout)
+    {
+        size_t bytes_read = 0;
+        i2s_read(I2S_NUM_0, buffer, bufferSize, &bytes_read, timeout);
+        return bytes_read / sizeof(int16_t);
+    }
+
     bool DigitalMicrophone::Start()
     {
         if (_initialized)

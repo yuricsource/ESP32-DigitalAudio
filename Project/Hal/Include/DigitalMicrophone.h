@@ -65,6 +65,7 @@ namespace Hal
         public:
             DigitalMicrophone(uint32_t sampleRate = DefaultSampleRate, i2s_port_t i2sPort = I2S_NUM_0);
             ~DigitalMicrophone();
+            uint32_t GetAudioBuffer(uint16_t* buffer, size_t bufferSize, TickType_t timeout = portMAX_DELAY);
             bool Start();
             void Stop();
         private:

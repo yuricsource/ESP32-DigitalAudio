@@ -6,6 +6,11 @@
 #include <cstdint>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "HalCommon.h"
+#include "Rng.h"
+#include "soc/rtc.h"
+#include "soc/rtc_periph.h"
+#include "DigitalMicrophone.h"
 
 namespace Hal
 {
@@ -13,8 +18,6 @@ namespace Hal
 class Hardware
 {
 public:
-    Hardware();
-
     static inline Hardware *Instance()
 	{
 		if (_pHardware == nullptr)
@@ -23,8 +26,21 @@ public:
 		}
 		return _pHardware;
 	}
+
+    Hardware();
+	DigitalMicrophone &GetDigitalMic() { return _digitalMic; }
+
+	uint32_t GetSystemClockBase()
+	{
+		return rtc_clk_apb_freq_get();
+	}
+
 private:
     static Hardware *_pHardware;
+	esp_chip_info_t _mcuInfo;
+	MacAddress _macAdrress;
+	Rng _rng;
+	DigitalMicrophone _digitalMic;
 };
 } // namespace Hal
 #endif /* HAL_SYSTEM_H_ */

@@ -1,5 +1,10 @@
 {
     "files.associations": {
-        "xiosbase": "cpp"
+        "xiosbase": "cpp",
+        "regex": "cpp",
+        "sstream": "cpp",
+        "strstream": "cpp",
+        "rtc_clk_common.h": "c",
+        "*.inc": "cpp"
     }
 }

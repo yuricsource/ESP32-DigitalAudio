@@ -1,18 +1,18 @@
-#include <hagl_hal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <wchar.h>
-#include <freertos/FreeRTOS.h>
-#include <freertos/task.h>
-#include <freertos/event_groups.h>
-#include <esp_log.h>
+// #include <hagl_hal.h>
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <string.h>
+// #include <wchar.h>
+// #include <freertos/FreeRTOS.h>
+// #include <freertos/task.h>
+// #include <freertos/event_groups.h>
+// #include <esp_log.h>
 
-#include <font6x9.h>
-#include <aps.h>
-#include <fps.h>
-#include <hagl.h>
-#include "sdkconfig.h"
+// #include <font6x9.h>
+// #include <aps.h>
+// #include <fps.h>
+// #include <hagl.h>
+// #include "sdkconfig.h"
 
 
 #include "Hardware.h"

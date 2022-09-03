@@ -4,9 +4,6 @@
 #include "driver/i2s.h" 
 #include "HalCommon.h"
 
-
-
-
 namespace Hal
 {
     class DigitalMicrophone
@@ -25,7 +22,7 @@ namespace Hal
             bool _initialized = false;
 
         private:
-        // delete &DigitalMicrophone;
+            DigitalMicrophone& operator=(const DigitalMicrophone&) = delete; 
     };
 }
 

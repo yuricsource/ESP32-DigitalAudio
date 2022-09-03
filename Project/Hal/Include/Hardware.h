@@ -11,6 +11,7 @@
 #include "soc/rtc.h"
 #include "soc/rtc_periph.h"
 #include "DigitalMicrophone.h"
+#include "I2sSpeaker.h"
 
 namespace Hal
 {
@@ -29,6 +30,7 @@ public:
 
     Hardware();
 	DigitalMicrophone &GetDigitalMic() { return _digitalMic; }
+	I2sSpeaker &GetI2sSpeaker() { return _i2sSpk; }
 
 	uint32_t GetSystemClockBase()
 	{
@@ -41,6 +43,7 @@ private:
 	MacAddress _macAdrress;
 	Rng _rng;
 	DigitalMicrophone _digitalMic;
+	I2sSpeaker _i2sSpk;
 };
 } // namespace Hal
 #endif /* HAL_SYSTEM_H_ */

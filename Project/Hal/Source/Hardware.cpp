@@ -5,7 +5,8 @@ namespace Hal
 Hardware *Hardware::_pHardware;
 
 Hardware::Hardware():   _rng(),
-                        _digitalMic(GPIO_NUM_2, GPIO_NUM_13, GPIO_NUM_26)
+                        _digitalMic(GPIO_NUM_2, GPIO_NUM_13, GPIO_NUM_26),
+                        _i2sSpk(GPIO_NUM_27, GPIO_NUM_12, GPIO_NUM_25)
 {
     esp_chip_info(&_mcuInfo);
 	esp_base_mac_addr_get(_macAdrress.data());

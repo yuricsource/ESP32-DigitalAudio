@@ -1,5 +1,6 @@
 #include "DigitalMicrophone.h"
-#ifdef DEBUG    
+
+#ifdef MIC_DEBUG    
 #include <hagl_hal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,7 +20,7 @@
 #define TAG "MIC"
 #define SAMPLE_BUFFER_SIZE 1024
 #define PIXEL_SIZE 4
-#endif
+#endif /* MIC_DEBUG */
 
 namespace Hal
 {
@@ -46,11 +47,9 @@ namespace Hal
         _i2sPins.data_out_num = I2S_PIN_NO_CHANGE;
         _i2sPins.data_in_num = dataPin;
 
-        // Initializing the I2S driver
-        i2s_driver_install(_i2sPort, &_config, 0, NULL);
-        i2s_set_pin(_i2sPort, &_i2sPins);
+        Start();
 
-#ifdef DEBUG
+#ifdef MIC_DEBUG
         color_t green = hagl_color(0, 255, 0);
         ESP_LOGI(TAG, "Heap when starting: %d", esp_get_free_heap_size());
         hagl_init();
@@ -84,7 +83,7 @@ namespace Hal
             hagl_clear_screen();
             vTaskDelay(1);
         }
-#endif
+#endif /* MIC_DEBUG */
     }
 
     DigitalMicrophone::~DigitalMicrophone()
@@ -104,7 +103,9 @@ namespace Hal
         if (_initialized)
             return true;
 
+        // Initializing the I2S driver
         _initialized = (ESP_OK == i2s_driver_install(_i2sPort, &_config, 0, NULL));
+        i2s_set_pin(_i2sPort, &_i2sPins);
 
         return _initialized;
     }

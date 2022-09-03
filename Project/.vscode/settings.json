@@ -5,6 +5,7 @@
         "sstream": "cpp",
         "strstream": "cpp",
         "rtc_clk_common.h": "c",
-        "*.inc": "cpp"
+        "*.inc": "cpp",
+        "list": "cpp"
     }
 }

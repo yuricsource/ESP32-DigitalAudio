@@ -14,6 +14,19 @@ public:
 
 	uint32_t GetNumber();
 
+private:
+	/// @brief	Hide Copy constructor.
+	Rng(const Rng &) = delete;
+
+	/// @brief	Hide Assignment operator.
+	Rng &operator=(const Rng &) = delete;
+
+	/// @brief	Hide Move constructor.
+	Rng(Rng &&) = delete;
+
+	/// @brief	Hide Move assignment operator.
+	Rng &operator=(Rng &&) = delete;
+
 };
 } // namespace Hal
 

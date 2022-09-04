@@ -22,7 +22,17 @@ namespace Hal
             bool _initialized = false;
 
         private:
-            I2sSpeaker& operator=(const I2sSpeaker&) = delete; 
+            /// @brief	Hide Copy constructor.
+            I2sSpeaker(const I2sSpeaker &) = delete;
+
+            /// @brief	Hide Assignment operator.
+            I2sSpeaker &operator=(const I2sSpeaker &) = delete;
+
+            /// @brief	Hide Move constructor.
+            I2sSpeaker(I2sSpeaker &&) = delete;
+
+            /// @brief	Hide Move assignment operator.
+            I2sSpeaker &operator=(I2sSpeaker &&) = delete;
     };
 }
 #endif /* HAL_I2S_SPEAKER_H_ */

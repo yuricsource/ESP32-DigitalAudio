@@ -22,7 +22,17 @@ namespace Hal
             bool _initialized = false;
 
         private:
-            DigitalMicrophone& operator=(const DigitalMicrophone&) = delete; 
+            /// @brief	Hide Copy constructor.
+            DigitalMicrophone(const DigitalMicrophone &) = delete;
+
+            /// @brief	Hide Assignment operator.
+            DigitalMicrophone &operator=(const DigitalMicrophone &) = delete;
+
+            /// @brief	Hide Move constructor.
+            DigitalMicrophone(DigitalMicrophone &&) = delete;
+
+            /// @brief	Hide Move assignment operator.
+            DigitalMicrophone &operator=(DigitalMicrophone &&) = delete;
     };
 }
 

@@ -9,10 +9,8 @@ set(COMPONENT_ADD_INCLUDEDIRS   ". ../Include/Hal/ \
                                 ../FreeRTOS/c++/Source/include")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
-                    -DHARDWARE_TESTER=1 \
-                    -DCPP_FREERTOS_NO_EXCEPTIONS=1 \
-                    -DESP_PLATFORM=1 \
-                    -DMIC_DEBUG=1")
+                    -DAUDIO_PROJECT=1 \
+                    -DCPP_FREERTOS_NO_EXCEPTIONS=1")
 
 register_component()
 

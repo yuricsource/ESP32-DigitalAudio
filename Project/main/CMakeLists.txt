@@ -2,11 +2,17 @@
 set(COMPONENT_REQUIRES )
 set(COMPONENT_PRIV_REQUIRES )
 
-set(COMPONENT_SRCDIRS ". ../Source/Hal/ ../FreeRTOS/c++/Source/")
+set(COMPONENT_SRCDIRS   ". ../Source/Hal/ \
+                        ../FreeRTOS/c++/Source/")
 
-set(COMPONENT_ADD_INCLUDEDIRS ". ../Include/Hal/ ../FreeRTOS/c++/Source/include")
+set(COMPONENT_ADD_INCLUDEDIRS   ". ../Include/Hal/ \
+                                ../FreeRTOS/c++/Source/include")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DHARDWARE_TESTER=1 -DCPP_FREERTOS_NO_EXCEPTIONS=1 -DESP_PLATFORM=1")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
+                    -DHARDWARE_TESTER=1 \
+                    -DCPP_FREERTOS_NO_EXCEPTIONS=1 \
+                    -DESP_PLATFORM=1 \
+                    -DMIC_DEBUG=1")
 
 register_component()
 

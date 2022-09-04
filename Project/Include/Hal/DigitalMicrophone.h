@@ -3,13 +3,16 @@
 
 #include "driver/i2s.h" 
 #include "HalCommon.h"
+#include <stdio.h>
 
 namespace Hal
 {
     class DigitalMicrophone
     {
         public:
-            DigitalMicrophone(gpio_num_t bkPin, gpio_num_t wsPin, gpio_num_t dataPin, uint32_t sampleRate = DefaultSampleRate, i2s_port_t i2sPort = I2S_NUM_0);
+            DigitalMicrophone(gpio_num_t bkPin, gpio_num_t wsPin, gpio_num_t dataPin,
+                            uint32_t sampleRate = DefaultSampleRate,
+                            i2s_port_t i2sPort = I2S_NUM_0);
             ~DigitalMicrophone();
             size_t GetAudioBuffer(int16_t* buffer, size_t bufferSize, TickType_t timeout = portMAX_DELAY);
             bool Start();

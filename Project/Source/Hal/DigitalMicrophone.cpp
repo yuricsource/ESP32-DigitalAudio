@@ -1,4 +1,5 @@
 #include "DigitalMicrophone.h"
+#include "DebugAssert.h"
 
 #ifdef MIC_DEBUG    
 #include <hagl_hal.h>
@@ -46,9 +47,13 @@ namespace Hal
         _i2sPins.ws_io_num = wsPin;
         _i2sPins.data_out_num = I2S_PIN_NO_CHANGE;
         _i2sPins.data_in_num = dataPin;
+        
+        esp_err_t error = i2s_driver_install(_i2sPort, &_config, 0, NULL);
 
-        Start();
-
+        DebugAssertMessage((ESP_OK == error), "Digital Mic not initialized, error:%d", error);
+        _initialized = (ESP_OK == error);
+        
+        i2s_set_pin(_i2sPort, &_i2sPins);
 #ifdef MIC_DEBUG
         color_t green = hagl_color(0, 255, 0);
         ESP_LOGI(TAG, "Heap when starting: %d", esp_get_free_heap_size());
@@ -104,9 +109,8 @@ namespace Hal
             return true;
 
         // Initializing the I2S driver
-        _initialized = (ESP_OK == i2s_driver_install(_i2sPort, &_config, 0, NULL));
-        i2s_set_pin(_i2sPort, &_i2sPins);
-
+        _initialized = (ESP_OK == i2s_start(_i2sPort));
+    
         return _initialized;
     }
 
@@ -116,7 +120,7 @@ namespace Hal
             return;
 
         _initialized = false;
-        i2s_driver_install(_i2sPort, &_config, 0, NULL);
+        i2s_stop(_i2sPort);
     }
 
 }

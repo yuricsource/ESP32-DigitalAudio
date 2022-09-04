@@ -1,4 +1,5 @@
 #include "Hardware.h"
+#include "DebugAssert.h"
 
 namespace Hal
 {
@@ -25,7 +26,16 @@ Hardware::Hardware():   _rng(),
 		   _macAdrress[2],
 		   _macAdrress[3]);
 	printf("MCU Free Heap       		: %d\n", esp_get_free_heap_size());
+	
+	if (_pHardware == nullptr)
+		_pHardware = this;
+	else
+		DebugAssertFail("!!! Error: Only one instance of Hardware can be created !!!\n");
+}
 
+uint32_t Hardware::Milliseconds()
+{
+	return xTaskGetTickCount() * portTICK_PERIOD_MS;
 }
 
 }

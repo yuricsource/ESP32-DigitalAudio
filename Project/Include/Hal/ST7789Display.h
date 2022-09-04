@@ -26,6 +26,8 @@ typedef uint32_t color_t;
             void DrawRectangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, color_t color, bool filled = false);
             void DrawRoundedRectangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t r, color_t color, bool filled = false);
             uint16_t PrintText(const char *str, int16_t x0, int16_t y0, color_t color);
+            size_t GetDisplayWidth();
+            size_t GetDisplayHeight();
         private:
            
         private:

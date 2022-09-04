@@ -19,7 +19,7 @@ ApplicationMgr::ApplicationMgr()
 
 void ApplicationMgr::Initialize()
 {
-
+    _menu = new MenuService();
 }
 
 } // namespace Applications

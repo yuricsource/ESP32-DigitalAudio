@@ -30,10 +30,12 @@ public:
 	}
 
     Hardware();
+	uint32_t Milliseconds();
 	DigitalMicrophone &GetDigitalMic() { return _digitalMic; }
 	I2sSpeaker &GetI2sSpeaker() { return _i2sSpk; }
 	ST7789Display& GetDisplay() { return _display; }
-
+	Rng &GetRng() { return _rng; }
+	
 	uint32_t GetSystemClockBase()
 	{
 		return rtc_clk_apb_freq_get();

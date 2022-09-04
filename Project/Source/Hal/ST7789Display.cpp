@@ -65,6 +65,16 @@ namespace Hal
 #endif
     }
 
+    size_t ST7789Display::GetDisplayWidth()
+    {
+        return DISPLAY_WIDTH;
+    }
+
+    size_t ST7789Display::GetDisplayHeight()
+    {
+        return DISPLAY_HEIGHT;
+    }
+
     ST7789Display::~ST7789Display()
     {
     }
@@ -139,5 +149,10 @@ namespace Hal
             return 0;
 
         return hagl_put_text(str, x0, y0, color, font6x9);
+    }
+
+    void ST7789Display::DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, color_t color)
+    {
+        hagl_draw_line(x0, y0, x1, y1, color);
     }
 }

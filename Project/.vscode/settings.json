@@ -6,6 +6,8 @@
         "strstream": "cpp",
         "rtc_clk_common.h": "c",
         "*.inc": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "xlocale": "cpp",
+        "*.ipp": "cpp"
     }
 }

@@ -2,11 +2,16 @@
 set(COMPONENT_REQUIRES )
 set(COMPONENT_PRIV_REQUIRES )
 
-set(COMPONENT_SRCDIRS   ". ../Source/Hal/ \
-                        ../FreeRTOS/c++/Source/")
+set(COMPONENT_SRCDIRS   ". ../FreeRTOS/c++/Source \
+                        ../Source/Hal \
+                        ../Source/Applications \
+                        ../Source/Utils")
 
-set(COMPONENT_ADD_INCLUDEDIRS   ". ../Include/Hal/ \
-                                ../FreeRTOS/c++/Source/include")
+set(COMPONENT_ADD_INCLUDEDIRS   ". ../FreeRTOS/c++/Source/include \
+                                ../FreeRTOS \
+                                ../Include/Hal \
+                                ../Include/Applications \
+                                ../Include/Utils")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
                     -DAUDIO_PROJECT=1 \

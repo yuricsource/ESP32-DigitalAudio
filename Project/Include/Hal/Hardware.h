@@ -38,7 +38,7 @@ public:
 	
 	uint32_t GetSystemClockBase()
 	{
-		return rtc_clk_apb_freq_get();
+		return ets_get_cpu_frequency();
 	}
 
 private:

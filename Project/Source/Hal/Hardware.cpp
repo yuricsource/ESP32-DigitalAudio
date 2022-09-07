@@ -16,7 +16,7 @@ Hardware::Hardware():   _rng(),
 	esp_base_mac_addr_get(_macAdrress.data());
 	printf("SDK Version         		: %s\n", (char *)esp_get_idf_version());
 	printf("CPU Cores           		: %d\n", _mcuInfo.cores);
-	printf("APB Clock           		: %d Hz\n", GetSystemClockBase());
+	printf("APB Clock           		: %d MHz\n", GetSystemClockBase());
 	printf("CPU Revision        		: %d\n", _mcuInfo.revision);
 	printf("Embedded Flash      		: %s\n", (_mcuInfo.features & CHIP_FEATURE_EMB_FLASH) ? "YES" : "NO");
 	printf("Wi-Fi Modle         		: %s\n", (_mcuInfo.features & CHIP_FEATURE_WIFI_BGN) ? "YES" : "NO");

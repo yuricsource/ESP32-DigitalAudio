@@ -5,13 +5,15 @@ set(COMPONENT_PRIV_REQUIRES )
 set(COMPONENT_SRCDIRS   ". ../FreeRTOS/c++/Source \
                         ../Source/Hal \
                         ../Source/Applications \
-                        ../Source/Utils")
+                        ../Source/Utils \
+                        ../Source/TensorFlow")
 
 set(COMPONENT_ADD_INCLUDEDIRS   ". ../FreeRTOS/c++/Source/include \
                                 ../FreeRTOS \
                                 ../Include/Hal \
                                 ../Include/Applications \
-                                ../Include/Utils")
+                                ../Include/Utils \
+                                ../Include/TensorFlow")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
                     -DAUDIO_PROJECT=1 \

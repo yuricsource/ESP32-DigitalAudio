@@ -1,5 +1,7 @@
 #include "Hardware.h"
 #include "DebugAssert.h"
+#include "sdkconfig.h"
+#include "tensorflow/lite/version.h"
 
 namespace Hal
 {
@@ -26,7 +28,8 @@ Hardware::Hardware():   _rng(),
 		   _macAdrress[2],
 		   _macAdrress[3]);
 	printf("MCU Free Heap       		: %d\n", esp_get_free_heap_size());
-	
+	printf("TensorFlow lite         	: %d.%d.%d\n", TF_MAJOR_VERSION, TF_MINOR_VERSION, TF_PATCH_VERSION);
+
 	if (_pHardware == nullptr)
 		_pHardware = this;
 	else
@@ -35,7 +38,7 @@ Hardware::Hardware():   _rng(),
 
 uint32_t Hardware::Milliseconds()
 {
-	return xTaskGetTickCount() * portTICK_PERIOD_MS;
+	return xTaskGetTickCount() * (1000 / configTICK_RATE_HZ);
 }
 
 }

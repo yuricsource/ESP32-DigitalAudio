@@ -20,6 +20,7 @@ ApplicationMgr::ApplicationMgr()
 void ApplicationMgr::Initialize()
 {
     _menu = new MenuService();
+    _ai = new AIService();
 }
 
 } // namespace Applications

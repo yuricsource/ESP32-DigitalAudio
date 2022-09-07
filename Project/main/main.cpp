@@ -8,6 +8,7 @@ void app_main()
     Applications::ApplicationMgr appMgr;
     appMgr.Initialize();
     appMgr.Instance()->GetMenu().Start();
+    appMgr.Instance()->GetAI().Start();
 
     for(;;)
     {

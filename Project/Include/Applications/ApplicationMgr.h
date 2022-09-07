@@ -1,6 +1,8 @@
 #pragma once    
 #include "Hardware.h"
+#include "thread.hpp"
 #include "MenuService.h"
+#include "AIService.h"
 
 namespace Applications
 {
@@ -22,10 +24,12 @@ public:
     }
 
     MenuService& GetMenu() {return *_menu;}
+    AIService& GetAI() {return *_ai;}
 
 private:
     static ApplicationMgr *_applications;
     MenuService *_menu;
+    AIService *_ai;
 private:
     /// @brief	Hide Copy constructor.
     ApplicationMgr(const ApplicationMgr &) = delete;

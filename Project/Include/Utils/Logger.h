@@ -17,6 +17,7 @@ public:
 	{
 		Hal,
 		Menu,
+		AI,
 		Unknown = 255
 	};
 

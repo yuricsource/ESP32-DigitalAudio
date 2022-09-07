@@ -25,10 +25,11 @@ unsigned char const severityInfoLen = 1;
 char const *severityError = "E";
 unsigned char const severityErrorLen = 1;
 
-Logger::LogInfos typeInfos[2] =
+Logger::LogInfos typeInfos[3] =
 {
 	{" HAL  ", 6},
-	{" MENU ", 6}
+	{" MENU ", 6},
+	{"  AI  ", 6}
 };
 
 void Logger::LogInfo(const char *format, ...)

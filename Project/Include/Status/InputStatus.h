@@ -22,7 +22,7 @@ public:
     ~InputStatus();
 
 private:
-    static const uint8_t MaxHitCount = 5;
+    static const uint8_t MaxHitCount = 10;
     struct InputData 
     {
         InputType Type;

@@ -41,10 +41,12 @@ void MenuService::Run()
         auto button1 = &StatusMgr::Instance()->GetInputStatusList().GetInput(Configuration::InputIndex::ButtonOk);
         auto button2 = &StatusMgr::Instance()->GetInputStatusList().GetInput(Configuration::InputIndex::ButtonBack);
 
-        if (button1->GetDigitalLevelDebounce())
+        if (!button1->GetDigitalLevelDebounce() && !button2->GetDigitalLevelDebounce())
+            colour = 0xff00; 
+        else if (!button2->GetDigitalLevelDebounce())
             colour = 0xff;
-        if (button2->GetDigitalLevelDebounce())
-            colour = 0xff00;
+        else if (!button1->GetDigitalLevelDebounce())
+            colour = 0xff0;
 
         static int16_t raw_samples[1024];
 

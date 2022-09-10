@@ -52,8 +52,10 @@ public:
 private:
     static const uint16_t InputCount = MaxAnalogInputs + MaxDigitalInputs;
     array <InputStatus, InputCount> _inputList;
+    
+    // This is Board physical buttons
     InputType StaticInputConfig [InputCount] = {InputType::Digital, InputType::Digital,
-                                                             InputType::Analog,  InputType::Analog};
+                                                InputType::Analog};
 private:
     /// @brief	Hide Copy constructor.
     InputStatusList(const InputStatusList &) = delete;

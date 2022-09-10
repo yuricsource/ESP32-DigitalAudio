@@ -15,8 +15,6 @@ namespace Configuration
     enum class InputIndex : uint8_t
     {
         ButtonOk,
-        ButtonBack,
-        PotLaserPower,
-        PotLaserDelay
+        ButtonBack
     };
 } // namespace Common

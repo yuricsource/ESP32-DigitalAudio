@@ -7,7 +7,10 @@ namespace Hal
 {
 Hardware *Hardware::_pHardware;
 
-Hardware::Hardware():   _rng(),
+Hardware::Hardware():   _gpio(),
+						_adc(&_gpio),
+						_deviceInput(&_gpio, &_adc),
+						_rng(),
                         _digitalMic(GPIO_NUM_2, GPIO_NUM_13, GPIO_NUM_26),
                         _i2sSpk(GPIO_NUM_27, GPIO_NUM_12, GPIO_NUM_25),
 						_display(GPIO_NUM_19, GPIO_NUM_18, GPIO_NUM_5, GPIO_NUM_16, GPIO_NUM_23, GPIO_NUM_4)

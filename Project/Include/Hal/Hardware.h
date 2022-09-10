@@ -13,6 +13,9 @@
 #include "DigitalMicrophone.h"
 #include "I2sSpeaker.h"
 #include "ST7789Display.h"
+#include "Gpio.h"
+#include "Analog.h"
+#include "DeviceInput.h"
 
 namespace Hal
 {
@@ -35,6 +38,9 @@ public:
 	I2sSpeaker &GetI2sSpeaker() { return _i2sSpk; }
 	ST7789Display& GetDisplay() { return _display; }
 	Rng &GetRng() { return _rng; }
+	Gpio &GetGpio() { return _gpio; }
+	Adc &GetAdc() { return _adc; }
+	DeviceInput& GetDeviceInput() { return _deviceInput; }
 	
 	uint32_t GetSystemClockBase()
 	{
@@ -43,6 +49,9 @@ public:
 
 private:
     static Hardware *_pHardware;
+	Gpio _gpio;
+	Adc _adc;
+	DeviceInput _deviceInput;
 	esp_chip_info_t _mcuInfo;
 	MacAddress _macAdrress;
 	Rng _rng;

@@ -17,6 +17,14 @@ InputScanService::InputScanService() : cpp_freertos::Thread("INPUTSVC",
 
 void InputScanService::Run()
 {
+
+    // // Gathering low laywer references
+	// DeviceInput& deviceInput = Hal::Hardware::Instance()->GetDeviceInput();
+	// WiiNunchuk& controller = Hal::Hardware::Instance()->GetController();
+
+	// // Getting input and controller Status
+	// InputStatusList& inputList = StatusAgent::Instance()->GetInputStatusList();
+
     Logger::LogInfo(Logger::LogSource::Input, "Input Scan Service Service Started");
     for(;;)
     {

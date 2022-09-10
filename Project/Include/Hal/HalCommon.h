@@ -15,7 +15,7 @@ namespace Hal
 using std::array;
 
 static constexpr uint8_t MaxDigitalInputs = 2;
-static constexpr uint8_t MaxAnalogInputs = 2;
+static constexpr uint8_t MaxAnalogInputs = 1;
 
 enum class DigitalInputIndex : uint8_t
 {
@@ -25,8 +25,7 @@ enum class DigitalInputIndex : uint8_t
 
 enum class AnalogInputIndex : uint8_t
 {
-	LaserPower,
-	LaserDelay,
+	BatteryVoltage,
 };
 
 enum class RmtProtocolSupported : uint8_t

@@ -4,11 +4,13 @@
 #include "DebugAssert.h"
 #include "thread.hpp"
 #include "ticks.hpp"
+#include "StatusMgr.h"
 
 namespace Applications
 {
 using Hal::Hardware;
 using cpp_freertos::Ticks;
+using Status::StatusMgr;
 
 MenuService::MenuService() : cpp_freertos::Thread("MENUSVC", configMENUSVC_STACK_DEPTH, 3)
 {
@@ -34,7 +36,15 @@ void MenuService::Run()
         }
 
         size_t bytes_read = 0;
-        Hal::color_t green = 0xffffff;
+        Hal::color_t colour = 0xffffff;
+
+        auto button1 = &StatusMgr::Instance()->GetInputStatusList().GetInput(Configuration::InputIndex::ButtonOk);
+        auto button2 = &StatusMgr::Instance()->GetInputStatusList().GetInput(Configuration::InputIndex::ButtonBack);
+
+        if (button1->GetDigitalLevelDebounce())
+            colour = 0xff;
+        if (button2->GetDigitalLevelDebounce())
+            colour = 0xff00;
 
         static int16_t raw_samples[1024];
 
@@ -53,7 +63,7 @@ void MenuService::Run()
         for (uint16_t y = 0; y < display->GetDisplayHeight(); y += 1) 
         {
             int16_t data = (raw_samples[y * unitStep]) + display->GetDisplayWidth() / 2;
-            display->DrawLine(pData, pY, data, y, green);
+            display->DrawLine(pData, pY, data, y, colour);
             pData = data;
             pY = y;
         }

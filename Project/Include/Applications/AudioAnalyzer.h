@@ -6,20 +6,28 @@
 #include "thread.hpp"
 #include "TimeLimit.h"
 #include "Logger.h"
+#include "CircularBuffer.h"
 
 namespace Applications
 {
 
 using Hal::TimeLimit;
 using Utilities::Logger;
+using Utilities::CircularBuffer;
 using Hal::Hardware;
+using Hal::DigitalMicrophone;
 
 class AudioAnalyzer : public cpp_freertos::Thread
 {
 public:
     AudioAnalyzer();
 private:
+    static constexpr uint16_t TempBufferSize = 1024;
+    CircularBuffer<int16_t> _inputAudioBuffer;
+    DigitalMicrophone* _mic;
 
+    bool analyzeAudioBuffer(int16_t* buffer, size_t bufferSize);
+    int16_t _tempAudioBuffer[TempBufferSize] = {};
 protected:
     void Run() override;
 

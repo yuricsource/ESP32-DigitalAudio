@@ -10,15 +10,16 @@ namespace Hal
     class DigitalMicrophone
     {
         public:
+            static constexpr uint32_t SampleRate = 16000; 
             DigitalMicrophone(gpio_num_t bkPin, gpio_num_t wsPin, gpio_num_t dataPin,
-                            uint32_t sampleRate = DefaultSampleRate,
+                            uint32_t sampleRate = SampleRate,
                             i2s_port_t i2sPort = I2S_NUM_0);
             ~DigitalMicrophone();
             size_t GetAudioBuffer(int16_t* buffer, size_t bufferSize, TickType_t timeout = portMAX_DELAY);
             bool Start();
             void Stop();
         private:
-            static constexpr uint32_t DefaultSampleRate = 16000; 
+            
             i2s_config_t _config = {};
             i2s_port_t _i2sPort = I2S_NUM_0;
             i2s_pin_config_t _i2sPins = {};

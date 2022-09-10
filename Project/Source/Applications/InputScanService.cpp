@@ -32,7 +32,7 @@ void InputScanService::Run()
 	// Getting input and controller Status
 	InputStatusList& inputList = StatusMgr::Instance()->GetInputStatusList();
 
-    Logger::LogInfo(Logger::LogSource::Input, "CORE %d |Input Scan Service Started", GetCore());
+    Logger::LogInfo(Logger::LogSource::Input, "CORE %d | Input Scan Service Started", GetCore());
     for(;;)
     {
         for(uint8_t loops = 0; loops < 10; loops++)

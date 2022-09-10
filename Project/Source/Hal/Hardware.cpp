@@ -18,6 +18,7 @@ Hardware::Hardware():   _gpio(),
 {
     esp_chip_info(&_mcuInfo);
 	esp_base_mac_addr_get(_macAdrress.data());
+	printf("\n\n");
 	printf("SDK Version         		: %s\n", (char *)esp_get_idf_version());
 	printf("CPU Cores           		: %d\n", _mcuInfo.cores);
 	printf("APB Clock           		: %d MHz\n", GetSystemClockBase());
@@ -31,7 +32,8 @@ Hardware::Hardware():   _gpio(),
 	printf("MCU Free Heap       		: %d\n", esp_get_free_heap_size());
 	printf("FreeRtos Task Memory  		: %d\n", configTOTAL_PROJECT_HEAP_SIZE_ALLOCATED);
 	printf("TensorFlow lite         	: v%d.%d.%d\n", TF_MAJOR_VERSION, TF_MINOR_VERSION, TF_PATCH_VERSION);
-
+	printf("\n");
+	
 	if (_pHardware == nullptr)
 		_pHardware = this;
 	else

@@ -16,7 +16,7 @@ AIService::AIService() : cpp_freertos::Thread("AISVC", configAISVC_STACK_DEPTH, 
 
 void AIService::Run()
 {
-    Logger::LogInfo(Logger::LogSource::AI, "CORE %d |AI Service Started", GetCore());
+    Logger::LogInfo(Logger::LogSource::AI, "CORE %d | AI Service Started", GetCore());
     DebugAssertMessage(true, "This is a example of assert message");
     for(;;)
     {

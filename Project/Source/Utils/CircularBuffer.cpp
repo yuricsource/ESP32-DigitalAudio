@@ -139,6 +139,7 @@ unsigned int CircularBuffer<T>::ReadPart(T *data, unsigned int len)
 template class CircularBuffer<char>;
 template class CircularBuffer<uint8_t>;
 template class CircularBuffer<uint16_t>;
+template class CircularBuffer<int16_t>;
 template class CircularBuffer<char *>;
 template class CircularBuffer<uint64_t>;
 

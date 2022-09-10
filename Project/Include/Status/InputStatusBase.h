@@ -29,14 +29,14 @@ public:
     /// @brief Get Digital Value Debounce
     virtual bool GetDigitalLevelDebounce()
     {
-        DebugAssertMessage(GetType() == Hal::InputType::Digital, "Input is not configured as Digital.");
+        // DebugAssertMessage(GetType() == Hal::InputType::Digital, "Input is not configured as Digital.");
         return DoGetDigitalLevelDebounce();
     }
 
     /// @brief Set Digital Value
     virtual void SetDigitalLevel(bool value)
     {
-        DebugAssertMessage(GetType() == Hal::InputType::Digital, "Input is not configured as Digital.");
+        // DebugAssertMessage(GetType() == Hal::InputType::Digital, "Input is not configured as Digital.");
         return DoSetDigitalLevel(value);
     }
 

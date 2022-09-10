@@ -43,7 +43,7 @@ void InputScanService::Run()
                 SetDigitalLevel(deviceInput.GetDigitalInput(DigitalInputIndex::UserButtonReturn));
 
             inputList.GetInput(Configuration::InputIndex::ButtonOk).
-                SetDigitalLevel(deviceInput.GetDigitalInput(DigitalInputIndex::UserButtonEnter));	
+                SetDigitalLevel(deviceInput.GetAnalogInput(AnalogInputIndex::UserButtonEnter) > 100);	
 
             inputList.GetInput(Configuration::InputIndex::BatteryVoltage).
                 SetAnalogLevel(deviceInput.GetAnalogInput(AnalogInputIndex::BatteryVoltage));

@@ -54,7 +54,7 @@ private:
     array <InputStatus, InputCount> _inputList;
     
     // This is Board physical buttons
-    InputType StaticInputConfig [InputCount] = {InputType::Digital, InputType::Digital,
+    InputType StaticInputConfig [InputCount] = {InputType::Digital, InputType::Analog,
                                                 InputType::Analog};
 private:
     /// @brief	Hide Copy constructor.

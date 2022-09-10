@@ -4,6 +4,7 @@
 #include "MenuService.h"
 #include "AIService.h"
 #include "InputScanService.h"
+#include "AudioAnalyzer.h"
 
 namespace Applications
 {
@@ -12,8 +13,6 @@ class ApplicationMgr
 {
 public:
     ApplicationMgr();
-
-    void Initialize();
 
     static inline ApplicationMgr *Instance()
     {
@@ -27,12 +26,17 @@ public:
     MenuService& GetMenu() {return *_menu;}
     AIService& GetAI() {return *_ai;}
     InputScanService& GetInputScan() {return *_inputScan;}
+    AudioAnalyzer& GetAudioAnalyzer() {return *_audioAnalyzer;}
 
 private:
     static ApplicationMgr *_applications;
     MenuService *_menu;
     AIService *_ai;
     InputScanService *_inputScan;
+    AudioAnalyzer *_audioAnalyzer;
+    
+    // Allocate all the tasks
+    void initialize();
 
 private:
     /// @brief	Hide Copy constructor.

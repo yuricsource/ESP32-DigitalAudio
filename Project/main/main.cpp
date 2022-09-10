@@ -8,17 +8,20 @@ using Status::StatusMgr;
 extern "C"
 void app_main()
 {
+    // Initialize the hardware
     Hal::Hardware hardware;
+
+    // Initialize Application Manager
     Applications::ApplicationMgr appMgr;
 
-    // Initialize Status Agent
-	StatusMgr::Instance()->Initialize();
+    // Initialize Status Manager
+	StatusMgr statusMgr;
 
 	// Start Applications
-    appMgr.Initialize();
+    appMgr.Instance()->GetAI().Start(1);
     appMgr.Instance()->GetMenu().Start();
-    appMgr.Instance()->GetAI().Start();
     appMgr.Instance()->GetInputScan().Start();
+    appMgr.Instance()->GetAudioAnalyzer().Start();
 
     for(;;)
     {

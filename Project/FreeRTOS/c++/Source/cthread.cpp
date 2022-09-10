@@ -120,7 +120,7 @@ Thread::Thread( uint16_t usStackDepth,
 #endif
 
 
-bool Thread::Start()
+bool Thread::Start(const BaseType_t xCoreID)
 {
     //
     //  If the Scheduler is on, we need to lock before checking
@@ -151,12 +151,13 @@ bool Thread::Start()
 
 #ifndef CPP_FREERTOS_NO_CPP_STRINGS
 
-    BaseType_t rc = xTaskCreate(TaskFunctionAdapter,
+    BaseType_t rc = xTaskCreatePinnedToCore(TaskFunctionAdapter,
                                 Name.c_str(),
                                 StackDepth,
                                 this,
                                 Priority,
-                                &handle);
+                                &handle,
+                                xCoreID);
 #else 
 
     BaseType_t rc = xTaskCreate(TaskFunctionAdapter,

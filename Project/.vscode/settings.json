@@ -13,6 +13,9 @@
         "thread": "cpp",
         "chrono": "cpp",
         "variant": "cpp",
-        "charconv": "cpp"
+        "charconv": "cpp",
+        "*.rh": "cpp",
+        "streambuf": "cpp",
+        "xstring": "cpp"
     }
 }

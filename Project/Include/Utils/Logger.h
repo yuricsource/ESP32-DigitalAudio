@@ -19,6 +19,7 @@ public:
 		Menu,
 		AI,
 		Input,
+		Audio,
 		Unknown = 255
 	};
 

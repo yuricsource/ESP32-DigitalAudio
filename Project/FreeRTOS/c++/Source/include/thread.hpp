@@ -126,7 +126,16 @@ class Thread {
          *
          *  This should only be called once ever! 
          */
-        bool Start();
+        bool Start(const BaseType_t xCoreID = 0);
+
+
+        /**
+         *  Get Which core the task is running on.
+         */
+        inline uint8_t GetCore()
+        {
+            return xPortGetCoreID() + 1;
+        }
 
         /**
          *  Our destructor. This must exist even if FreeRTOS is

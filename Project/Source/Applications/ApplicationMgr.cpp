@@ -10,6 +10,7 @@ ApplicationMgr::ApplicationMgr()
     if (_applications == nullptr)
     {
         _applications = this;
+        initialize();
     }
     else
     {
@@ -17,11 +18,12 @@ ApplicationMgr::ApplicationMgr()
     }
 }
 
-void ApplicationMgr::Initialize()
+void ApplicationMgr::initialize()
 {
     _menu = new MenuService();
     _ai = new AIService();
     _inputScan = new InputScanService();
+    _audioAnalyzer = new AudioAnalyzer();
 }
 
 } // namespace Applications

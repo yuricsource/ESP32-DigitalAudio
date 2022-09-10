@@ -10,6 +10,7 @@ StatusMgr::StatusMgr()
     if (_statusMgr == nullptr)
     {
         _statusMgr = this;
+        initialize();
     }
     else
     {
@@ -17,7 +18,7 @@ StatusMgr::StatusMgr()
     }
 }
 
-void StatusMgr::Initialize()
+void StatusMgr::initialize()
 {
     _boardStatus = new BoardStatus();
     _inputStatusList = new InputStatusList();

@@ -12,7 +12,6 @@ class StatusMgr
 public:
     StatusMgr();
 
-    void Initialize();
 
     static inline StatusMgr *Instance()
     {
@@ -30,6 +29,7 @@ private:
     static StatusMgr *_statusMgr;
     BoardStatus * _boardStatus = nullptr;
     InputStatusList * _inputStatusList = nullptr;
+    void initialize();
     
 private:
     /// @brief	Hide Copy constructor.

@@ -20,7 +20,7 @@ using Hal::DigitalInputIndex;
 using Hal::AnalogInputIndex;
 
 InputScanService::InputScanService() : cpp_freertos::Thread("INPUTSVC",
-                                        configINPUTSVC_STACK_DEPTH, 3)
+                                        configINPUTSVC_STACK_DEPTH, 2)
 {
 }
 
@@ -32,7 +32,7 @@ void InputScanService::Run()
 	// Getting input and controller Status
 	InputStatusList& inputList = StatusMgr::Instance()->GetInputStatusList();
 
-    Logger::LogInfo(Logger::LogSource::Input, "Input Scan Service Service Started");
+    Logger::LogInfo(Logger::LogSource::Input, "CORE %d |Input Scan Service Started", GetCore());
     for(;;)
     {
         for(uint8_t loops = 0; loops < 10; loops++)

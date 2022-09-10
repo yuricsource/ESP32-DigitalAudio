@@ -18,7 +18,7 @@ MenuService::MenuService() : cpp_freertos::Thread("MENUSVC", configMENUSVC_STACK
 
 void MenuService::Run()
 {
-    Logger::LogInfo(Logger::LogSource::Menu, "Menu Service Started");
+    Logger::LogInfo(Logger::LogSource::Menu, "CORE %d |Menu Service Started", GetCore());
     DebugAssertMessage(true, "This is a example of assert message");
     for(;;) 
     {

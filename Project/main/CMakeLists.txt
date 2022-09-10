@@ -6,14 +6,19 @@ set(COMPONENT_SRCDIRS   ". ../FreeRTOS/c++/Source \
                         ../Source/Hal \
                         ../Source/Applications \
                         ../Source/Utils \
-                        ../Source/TensorFlow")
+                        ../Source/TensorFlow \
+                        ../Source/Status \
+                        ../Source/Configuration")
 
 set(COMPONENT_ADD_INCLUDEDIRS   ". ../FreeRTOS/c++/Source/include \
                                 ../FreeRTOS \
                                 ../Include/Hal \
                                 ../Include/Applications \
                                 ../Include/Utils \
-                                ../Include/TensorFlow")
+                                ../Include/TensorFlow \
+                                ../Include/Status \
+                                ../include/Configuration \
+                                ../include/Common")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
                     -DAUDIO_PROJECT=1 \

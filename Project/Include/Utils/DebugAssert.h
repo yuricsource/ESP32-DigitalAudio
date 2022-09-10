@@ -30,7 +30,7 @@
 #define DebugAssertMessage(result, ...)                             				\
 	do                                                                    			\
 	{                                                                     			\
-		if (result == false)                                           				\
+		if ((result) == false)                                           				\
 		{                                                                 			\
 			Utilities::DebugAssert::AssertFail(__FILE__, __LINE__, __VA_ARGS__);	\
 		}                                                                 			\

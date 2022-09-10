@@ -1,4 +1,4 @@
-#include "AIService.h"
+#include "InputScanService.h"
 #include "FreeRtosTaskConfig.h"
 #include "Hardware.h"
 #include "DebugAssert.h"
@@ -10,14 +10,14 @@ namespace Applications
 using Hal::Hardware;
 using cpp_freertos::Ticks;
 
-AIService::AIService() : cpp_freertos::Thread("AISVC", configAISVC_STACK_DEPTH, 3)
+InputScanService::InputScanService() : cpp_freertos::Thread("INPUTSVC",
+                                        configINPUTSVC_STACK_DEPTH, 3)
 {
 }
 
-void AIService::Run()
+void InputScanService::Run()
 {
-    Logger::LogInfo(Logger::LogSource::AI, "AI Service Started");
-    DebugAssertMessage(true, "This is a example of assert message");
+    Logger::LogInfo(Logger::LogSource::Input, "Input Scan Service Service Started");
     for(;;)
     {
         Delay(Ticks::MsToTicks(100));

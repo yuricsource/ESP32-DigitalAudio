@@ -1,5 +1,6 @@
 #include "Hardware.h"
 #include "ApplicationMgr.h"
+#include "ticks.hpp"
 
 extern "C"
 void app_main()
@@ -9,9 +10,10 @@ void app_main()
     appMgr.Initialize();
     appMgr.Instance()->GetMenu().Start();
     appMgr.Instance()->GetAI().Start();
+    appMgr.Instance()->GetInputScan().Start();
 
     for(;;)
     {
-        vTaskDelay(1000);
+        vTaskDelay(cpp_freertos::Ticks::MsToTicks(1000));
     }
 }

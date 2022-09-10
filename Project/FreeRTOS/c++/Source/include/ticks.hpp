@@ -40,8 +40,8 @@
 #ifndef TICKS_HPP_
 #define TICKS_HPP_
 
-#include "FreeRTOS.h"
-#include "task.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
 
 namespace cpp_freertos {

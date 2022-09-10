@@ -8,6 +8,8 @@
         "*.inc": "cpp",
         "list": "cpp",
         "xlocale": "cpp",
-        "*.ipp": "cpp"
+        "*.ipp": "cpp",
+        "array": "cpp",
+        "thread": "cpp"
     }
 }

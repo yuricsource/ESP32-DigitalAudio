@@ -3,6 +3,7 @@
 #include "thread.hpp"
 #include "MenuService.h"
 #include "AIService.h"
+#include "InputScanService.h"
 
 namespace Applications
 {
@@ -25,11 +26,14 @@ public:
 
     MenuService& GetMenu() {return *_menu;}
     AIService& GetAI() {return *_ai;}
+    InputScanService& GetInputScan() {return *_inputScan;}
 
 private:
     static ApplicationMgr *_applications;
     MenuService *_menu;
     AIService *_ai;
+    InputScanService *_inputScan;
+
 private:
     /// @brief	Hide Copy constructor.
     ApplicationMgr(const ApplicationMgr &) = delete;

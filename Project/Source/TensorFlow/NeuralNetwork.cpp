@@ -27,6 +27,8 @@ NeuralNetwork::NeuralNetwork(const void *model)
                              m_model->version(), TFLITE_SCHEMA_VERSION);
         return;
     }
+
+    TF_LITE_REPORT_ERROR(m_error_reporter, "Loading model Finished");
     // This pulls in the operators implementations we need
     m_resolver = new tflite::MicroMutableOpResolver<10>();
     m_resolver->AddConv2D();

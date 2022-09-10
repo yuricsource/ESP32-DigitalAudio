@@ -18,6 +18,7 @@ public:
 		Hal,
 		Menu,
 		AI,
+		Input,
 		Unknown = 255
 	};
 

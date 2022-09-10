@@ -3,10 +3,12 @@
 #include "Hardware.h"
 #include "DebugAssert.h"
 #include "thread.hpp"
+#include "ticks.hpp"
 
 namespace Applications
 {
 using Hal::Hardware;
+using cpp_freertos::Ticks;
 
 MenuService::MenuService() : cpp_freertos::Thread("MENUSVC", configMENUSVC_STACK_DEPTH, 3)
 {
@@ -16,7 +18,7 @@ void MenuService::Run()
 {
     Logger::LogInfo(Logger::LogSource::Menu, "Menu Service Started");
     DebugAssertMessage(true, "This is a example of assert message");
-    for(;;)
+    for(;;) 
     {
         Hardware* hardware = Hardware::Instance();
         hardware->GetDisplay().Clear();
@@ -56,7 +58,7 @@ void MenuService::Run()
             pY = y;
         }
         display->Flush();
-        Delay(10 / portTICK_PERIOD_MS);
+        Delay(Ticks::MsToTicks(10));
     }
 }
 

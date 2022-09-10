@@ -23,12 +23,9 @@ Hardware::Hardware():   _rng(),
 	printf("Bluetooth Classic   		: %s\n", (_mcuInfo.features & CHIP_FEATURE_BT) ? "YES" : "NO");
 	printf("Bluetooth LE        		: %s\n", (_mcuInfo.features & CHIP_FEATURE_BLE) ? "YES" : "NO");
 	printf("MAC Address         		: %02X:%02X:%02X:%02X\n",
-		   _macAdrress[0],
-		   _macAdrress[1],
-		   _macAdrress[2],
-		   _macAdrress[3]);
+		_macAdrress[0], _macAdrress[1], _macAdrress[2], _macAdrress[3]);
 	printf("MCU Free Heap       		: %d\n", esp_get_free_heap_size());
-	printf("TensorFlow lite         	: %d.%d.%d\n", TF_MAJOR_VERSION, TF_MINOR_VERSION, TF_PATCH_VERSION);
+	printf("TensorFlow lite         	: v%d.%d.%d\n", TF_MAJOR_VERSION, TF_MINOR_VERSION, TF_PATCH_VERSION);
 
 	if (_pHardware == nullptr)
 		_pHardware = this;

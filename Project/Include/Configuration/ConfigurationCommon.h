@@ -15,6 +15,7 @@ namespace Configuration
     enum class InputIndex : uint8_t
     {
         ButtonOk,
-        ButtonBack
+        ButtonBack,
+        BatteryVoltage
     };
 } // namespace Common

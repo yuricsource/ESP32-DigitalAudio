@@ -10,6 +10,9 @@
         "xlocale": "cpp",
         "*.ipp": "cpp",
         "array": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "chrono": "cpp",
+        "variant": "cpp",
+        "charconv": "cpp"
     }
 }

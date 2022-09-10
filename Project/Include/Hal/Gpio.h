@@ -71,6 +71,7 @@ public:
 		Disable = 0,
 		Input = 1,
 		Output = 2,
+		InOut = 3,
 		OutputOpenDrain = 6
 	};
 
@@ -122,7 +123,7 @@ public:
 	void SetPull(GpioIndex index, Pull pull, bool KeepInSleepMode = true);
 	void SetAlternate(GpioIndex index, AltFunc altFunc);
 
-	void ConfigInput(GpioIndex index, Pull pull = Pull::Down);
+	void ConfigInput(GpioIndex index, Pull pull = Pull::Down, Mode mode = Mode::Input);
 	void ConfigOutput(GpioIndex index, OutputType outputType);
 	
 	/// @brief Artduino Port

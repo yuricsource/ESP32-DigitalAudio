@@ -3,7 +3,7 @@
 #include "string.h"
 #include "driver/gpio.h"
 
-//#define DEBUG
+// #define DEBUG
 
 namespace Hal
 {
@@ -28,7 +28,7 @@ bool Gpio::Get(GpioIndex index)
 			pins[i].state = State::Low;
 	}
 #ifdef DEBUG
-	printf("\nRead Gpio %d: %d\n", static_cast<uint8_t>(index), static_cast<uint8_t>(pins[i].state));
+	printf("Read Gpio %d: %d\n", static_cast<uint8_t>(index), static_cast<uint8_t>(pins[i].state));
 #endif
 	return pins[i].state == State::High;
 }
@@ -82,7 +82,14 @@ void Gpio::SetPull(Gpio::GpioIndex index, Gpio::Pull pull, bool KeepInSleepMode)
 {
 	uint8_t i = static_cast<uint8_t>(index);
 	pins[i].pull = pull;
-	gpio_set_pull_mode(static_cast<gpio_num_t>(index), static_cast<gpio_pull_mode_t>(pull));
+	gpio_set_pull_mode(static_cast<gpio_num_t>(i), static_cast<gpio_pull_mode_t>(pull));
+	
+	gpio_pulldown_dis(static_cast<gpio_num_t>(i));
+	gpio_pullup_en(static_cast<gpio_num_t>(i));
+	// gpio_pullup_en(static_cast<gpio_num_t>(i));
+#ifdef DEBUG
+	printf("SetPull Gpio %d: %d\n", static_cast<uint8_t>(index), static_cast<uint8_t>(pull));
+#endif
 }
 
 void Gpio::SetAlternate(Gpio::GpioIndex index, Gpio::AltFunc altFunc)
@@ -90,9 +97,9 @@ void Gpio::SetAlternate(Gpio::GpioIndex index, Gpio::AltFunc altFunc)
 	pins[static_cast<uint8_t>(index)].altFunc = altFunc;
 }
 
-void Gpio::ConfigInput(Gpio::GpioIndex index, Gpio::Pull pull)
+void Gpio::ConfigInput(Gpio::GpioIndex index, Gpio::Pull pull, Mode mode)
 {
-	SetMode(index, Mode::Input);
+	SetMode(index, mode);
 	SetPull(index, pull);
 }
 

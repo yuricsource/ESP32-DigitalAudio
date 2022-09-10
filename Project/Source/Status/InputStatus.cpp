@@ -48,7 +48,7 @@ void InputStatus::DoSetDigitalLevel(bool value)
         // Increase the hit count
         _inputData.Data.Digital.HitCount++;
         // If the has changed and kept for MaxHitCount, update the masked value
-        if (_inputData.Data.Digital.HitCount > MaxHitCount)
+        if (value || _inputData.Data.Digital.HitCount > MaxHitCount)
             {
                _inputData.Data.Digital.MaskedState = value;
                _inputData.Data.Digital.HitCount = 0;

@@ -15,6 +15,11 @@ public:
 	CircularBuffer(unsigned int size);
 	
 	/// @brief	Circular Buffer Constructor.
+	/// @brief Reuse the same buffer pointer and create a snapshot of the HEAD and TAIL
+	/// @param	other	Circular buffer to snapshot.
+	CircularBuffer(CircularBuffer<T>& other);
+
+	/// @brief	Circular Buffer Constructor.
     /// @param	T*	    External buffer
     /// @param	size	The buffer size.
 	CircularBuffer(T* buffer, unsigned int size);
@@ -82,6 +87,9 @@ public:
 	/// @return	An integer.
 	unsigned int Skip(unsigned int len);
 
+	// Copying the pointers
+	CircularBuffer<T>& operator=(const CircularBuffer<T>& other);
+
 protected:
 	bool _internalBuffer;
 	unsigned int _size;
@@ -109,6 +117,7 @@ protected:
 		while (ptr >= (_buffer + _size))
 			ptr -= _size;
 	}
+
 };
 
 } // namespace Utilities

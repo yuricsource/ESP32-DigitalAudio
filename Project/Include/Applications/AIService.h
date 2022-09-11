@@ -6,6 +6,7 @@
 #include "thread.hpp"
 #include "TimeLimit.h"
 #include "Logger.h"
+#include "queue.hpp"
 
 namespace Applications
 {
@@ -13,16 +14,18 @@ namespace Applications
 using Hal::TimeLimit;
 using Utilities::Logger;
 using Hal::Hardware;
+using cpp_freertos::Queue;
 
 class AIService : public cpp_freertos::Thread
 {
 public:
     AIService();
+    void GetAudioSnapshot();
 private:
+    Queue _audioTrigger;
 
 protected:
     void Run() override;
-
 private:
     /// @brief	Hide Copy constructor.
     AIService(const AIService &) = delete;

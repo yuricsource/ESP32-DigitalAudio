@@ -8,7 +8,8 @@ set(COMPONENT_SRCDIRS   ". ../FreeRTOS/c++/Source \
                         ../Source/Utils \
                         ../Source/TensorFlow \
                         ../Source/Status \
-                        ../Source/Configuration")
+                        ../Source/Configuration \
+                        ../Source/AudioInterface")
 
 set(COMPONENT_ADD_INCLUDEDIRS   ". ../FreeRTOS/c++/Source/include \
                                 ../FreeRTOS \
@@ -18,7 +19,8 @@ set(COMPONENT_ADD_INCLUDEDIRS   ". ../FreeRTOS/c++/Source/include \
                                 ../Include/TensorFlow \
                                 ../Include/Status \
                                 ../include/Configuration \
-                                ../include/Common")
+                                ../include/Common \
+                                ../include/AudioInterface")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
                     -DAUDIO_PROJECT=1 \

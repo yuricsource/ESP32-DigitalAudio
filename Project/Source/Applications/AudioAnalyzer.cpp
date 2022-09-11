@@ -5,13 +5,13 @@
 #include "thread.hpp"
 #include "ticks.hpp"
 #include "ApplicationMgr.h"
+#include "AudioCircularBuffer.h"
 
 namespace Applications
 {
 using cpp_freertos::Ticks;
 
-AudioAnalyzer::AudioAnalyzer() : cpp_freertos::Thread("AUDASVC", configAISVC_STACK_DEPTH, 3),
-_inputAudioBuffer(DigitalMicrophone::SampleRate * 2) // 2 Seconds of sample
+AudioAnalyzer::AudioAnalyzer() : cpp_freertos::Thread("AUDASVC", configAISVC_STACK_DEPTH, 3)
 {
     _mic = &Hardware::Instance()->GetDigitalMic();
 }
@@ -30,8 +30,11 @@ bool AudioAnalyzer::detectTrigger(int16_t* buffer, size_t bufferSize)
 void AudioAnalyzer::Run()
 {
     MenuService* displayTask = &Applications::ApplicationMgr::Instance()->GetMenu();
+    AIService* aiService = &Applications::ApplicationMgr::Instance()->GetAI();
+
     Logger::LogInfo(Logger::LogSource::Audio, "CORE %d | Audio Analyzer Service Started", GetCore());
-    Logger::LogInfo(Logger::LogSource::Audio, "Max int16_t=%d and Thredshold level:%d", std::numeric_limits<int16_t>::max(), ThresholdLevel);
+ 
+    auto audioBuffer = AudioInterfaces::AudioCircularBuffer::Instance();
 
     for(;;)
     {
@@ -42,13 +45,11 @@ void AudioAnalyzer::Run()
         if (detectTrigger(_tempAudioBuffer, read))
         {
             Logger::LogInfo(Logger::LogSource::Audio, "Trigger Detected");
+            aiService->GetAudioSnapshot();
         }
         
+        audioBuffer.FeedAudio(_tempAudioBuffer, read);
 
-        if (_inputAudioBuffer.Free() < read)
-            _inputAudioBuffer.Skip(read - _inputAudioBuffer.Free());
-        
-        _inputAudioBuffer.Write(_tempAudioBuffer, read);
     }
 }
 

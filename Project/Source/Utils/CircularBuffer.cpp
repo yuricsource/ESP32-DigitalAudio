@@ -17,6 +17,17 @@ CircularBuffer<T>::CircularBuffer(T* buffer, unsigned int size)   : _internalBuf
 }
 
 template <typename T>
+CircularBuffer<T>::CircularBuffer(CircularBuffer<T>& other)
+{
+	// Copy the same buffer pointers and variable
+	// This function won't allocate another buffer
+	// but it will save all the pointers and a snapshot
+	// of the HEAD and TAIL if the Circular buffers
+	std::memcpy(this, &other, sizeof(CircularBuffer<T>));
+	_internalBuffer = false;
+}
+
+template <typename T>
 CircularBuffer<T>::~CircularBuffer()
 {
 	if(_internalBuffer)
@@ -111,6 +122,17 @@ T CircularBuffer<T>::operator[](int index)
 	}
 	Align(p);
 	return *p;
+}
+
+template <typename T>
+CircularBuffer<T>& CircularBuffer<T>::operator=(const CircularBuffer<T>& other)
+{
+	// Guard self assignment
+	if (this == &other)
+		return *this;
+		
+	std::memcpy(this, &other, sizeof(CircularBuffer<T>));
+	return *this;
 }
 
 template <typename T>

@@ -5,15 +5,22 @@ namespace Utilities
 {
 
 template <typename T>
-CircularBuffer<T>::CircularBuffer(unsigned int size)
-	: _size(size), _buffer(new T[size]), _write(_buffer), _read(_buffer), _used(0)
+CircularBuffer<T>::CircularBuffer(unsigned int size) : _internalBuffer(true),
+	_size(size), _buffer(new T[size]), _write(_buffer), _read(_buffer), _used(0)
+{
+}
+
+template<typename T>
+CircularBuffer<T>::CircularBuffer(T* buffer, unsigned int size)   : _internalBuffer(false),
+	_size(size), _buffer(buffer), _write(_buffer), _read(_buffer), _used(0)
 {
 }
 
 template <typename T>
 CircularBuffer<T>::~CircularBuffer()
 {
-	delete[] _buffer;
+	if(_internalBuffer)
+	    delete [] _buffer;
 }
 
 template <typename T>

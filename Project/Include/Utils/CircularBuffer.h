@@ -13,6 +13,11 @@ public:
 	/// @brief	Circular Buffer Constructor.
 	/// @param	size	The buffer size.
 	CircularBuffer(unsigned int size);
+	
+	/// @brief	Circular Buffer Constructor.
+    /// @param	T*	    External buffer
+    /// @param	size	The buffer size.
+	CircularBuffer(T* buffer, unsigned int size);
 
 	/// @brief	Circular Buffer Destructor.
 	~CircularBuffer();
@@ -78,6 +83,7 @@ public:
 	unsigned int Skip(unsigned int len);
 
 protected:
+	bool _internalBuffer;
 	unsigned int _size;
 	T *_buffer;
 	volatile T *volatile _write;

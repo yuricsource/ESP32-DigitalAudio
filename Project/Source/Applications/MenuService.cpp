@@ -45,10 +45,6 @@ void MenuService::drawAudioLine()
     int16_t pData = _display->GetDisplayWidth() / 2;
     uint8_t pY = 0;
     uint32_t unitStep = bytes_read / _display->GetDisplayHeight();
-    // printf("unitStep:%d\n",unitStep);
-
-    // for (uint32_t i = 0; i < bytes_read; i++)
-    //     printf("%d ",raw_samples[i]);
 
     for (uint16_t y = 0; y < _display->GetDisplayHeight(); y += 1) 
     {

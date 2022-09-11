@@ -25,8 +25,9 @@ unsigned char const severityInfoLen = 1;
 char const *severityError = "E";
 unsigned char const severityErrorLen = 1;
 
-Logger::LogInfos typeInfos[5] =
+Logger::LogInfos typeInfos[6] =
 {
+	{"SYSTEM", 6},
 	{" HAL  ", 6},
 	{" MENU ", 6},
 	{"  AI  ", 6},

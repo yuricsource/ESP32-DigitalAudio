@@ -47,6 +47,11 @@ public:
 		return ets_get_cpu_frequency();
 	}
 
+	uint32_t GetFreeHeap()
+	{
+		return esp_get_free_heap_size();
+	}
+
 private:
     static Hardware *_pHardware;
 	Gpio _gpio;

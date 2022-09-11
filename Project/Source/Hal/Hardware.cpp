@@ -29,7 +29,7 @@ Hardware::Hardware():   _gpio(),
 	printf("Bluetooth LE        		: %s\n", (_mcuInfo.features & CHIP_FEATURE_BLE) ? "YES" : "NO");
 	printf("MAC Address         		: %02X:%02X:%02X:%02X\n",
 		_macAdrress[0], _macAdrress[1], _macAdrress[2], _macAdrress[3]);
-	printf("MCU Free Heap       		: %d\n", esp_get_free_heap_size());
+	printf("MCU Free Heap       		: %d\n", GetFreeHeap());
 	printf("FreeRtos Task Memory  		: %d\n", configTOTAL_PROJECT_HEAP_SIZE_ALLOCATED);
 	printf("TensorFlow lite         	: v%d.%d.%d\n", TF_MAJOR_VERSION, TF_MINOR_VERSION, TF_PATCH_VERSION);
 	printf("\n");

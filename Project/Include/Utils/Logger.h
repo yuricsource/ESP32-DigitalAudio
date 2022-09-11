@@ -15,6 +15,7 @@ class Logger
 public:
 	enum class LogSource : uint8_t
 	{
+		System,
 		Hal,
 		Menu,
 		AI,

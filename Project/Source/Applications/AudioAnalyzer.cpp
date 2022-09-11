@@ -11,7 +11,7 @@ namespace Applications
 using cpp_freertos::Ticks;
 
 AudioAnalyzer::AudioAnalyzer() : cpp_freertos::Thread("AUDASVC", configAISVC_STACK_DEPTH, 3),
-_inputAudioBuffer(DigitalMicrophone::SampleRate * sizeof(int16_t)) // 1 Seconds of sample
+_inputAudioBuffer((DigitalMicrophone::SampleRate * sizeof(int16_t))) // 1 Seconds of sample
 {
     _mic = &Hardware::Instance()->GetDigitalMic();
 }

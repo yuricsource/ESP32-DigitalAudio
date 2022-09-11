@@ -4,12 +4,15 @@
 #include "StatusMgr.h"
 
 using Status::StatusMgr;
+using Hal::TimeLimit;
+using Hal::Hardware;
+using Utilities::Logger;
 
 extern "C"
 void app_main()
 {
     // Initialize the hardware
-    Hal::Hardware hardware;
+    Hardware hardware;
 
     // Initialize Application Manager
     Applications::ApplicationMgr appMgr;
@@ -22,9 +25,15 @@ void app_main()
     appMgr.Instance()->GetMenu().Start();
     appMgr.Instance()->GetInputScan().Start();
     appMgr.Instance()->GetAudioAnalyzer().Start();
-
+    TimeLimit timerDisplayStatus = {};
     for(;;)
     {
         vTaskDelay(cpp_freertos::Ticks::MsToTicks(1000));
+        if (timerDisplayStatus.IsTimeUp(30 * 1000))
+        {
+            timerDisplayStatus.Reset();
+            Logger::LogInfo(Logger::LogSource::System, 
+                "Free Heap Memory: %d", Hardware::Instance()->GetFreeHeap());
+        }
     }
 }

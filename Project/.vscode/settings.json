@@ -16,6 +16,7 @@
         "charconv": "cpp",
         "*.rh": "cpp",
         "streambuf": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "limits": "cpp"
     }
 }

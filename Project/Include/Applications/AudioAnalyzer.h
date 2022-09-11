@@ -23,10 +23,11 @@ public:
     AudioAnalyzer();
 private:
     static constexpr uint16_t TempBufferSize = 1024;
+    static constexpr int16_t ThresholdLevel = std::numeric_limits<int16_t>::max() / 256;
     CircularBuffer<int16_t> _inputAudioBuffer;
     DigitalMicrophone* _mic;
 
-    bool analyzeAudioBuffer(int16_t* buffer, size_t bufferSize);
+    bool detectTrigger(int16_t* buffer, size_t bufferSize);
     int16_t _tempAudioBuffer[TempBufferSize] = {};
 protected:
     void Run() override;

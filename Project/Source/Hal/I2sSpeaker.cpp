@@ -1,4 +1,7 @@
 #include "I2sSpeaker.h"
+#include "DebugAssert.h"
+
+// #define SPEAKER_DEBUG
 
 namespace Hal
 {
@@ -22,6 +25,8 @@ namespace Hal
         _i2sPins.data_out_num = dataPin;
         _i2sPins.data_in_num = -1;
 
+        Initialize();
+
 #ifdef SPEAKER_DEBUG
         static int16_t raw_samples[1024];
         for(;;)
@@ -33,7 +38,7 @@ namespace Hal
 
             while (bytes_read - total!= 0)
             {
-                i2s_write(I2S_NUM_1, &raw_samples[total], bytes_read - total, &bytes_read_return, portMAX_DELAY);
+                Play(&raw_samples[total], bytes_read - total, &bytes_read_return);
                 total += bytes_read_return;
             }
         }
@@ -45,32 +50,45 @@ namespace Hal
 
     }
 
-    size_t I2sSpeaker::Play(uint16_t* buffer, size_t bufferSize, TickType_t timeout)
+    void I2sSpeaker::Play(int16_t *src, size_t size, size_t *bytes_written, TickType_t timeout)
     {
-        size_t bytes_read = 0;
-        i2s_read(_i2sPort, buffer, bufferSize, &bytes_read, timeout);
-        return bytes_read / sizeof(int16_t);
+        i2s_write(_i2sPort, src, size, bytes_written, timeout);
+        return;
     }
 
-    bool I2sSpeaker::Start()
+    bool I2sSpeaker::Initialize()
     {
         if (_initialized)
             return true;
 
         // Initializing the I2S driver
-        _initialized = (ESP_OK == i2s_driver_install(_i2sPort, &_config, 0, NULL));
+        esp_err_t error = i2s_driver_install(_i2sPort, &_config, 0, NULL);
+
+        DebugAssertMessage(ESP_OK == error, "I2S speaker not initialized!");
+
+        _initialized = (ESP_OK == error);
         i2s_set_pin(_i2sPort, &_i2sPins);
 
         return _initialized;
     }
 
-    void I2sSpeaker::Stop()
+    void I2sSpeaker::Deinitialize()
     {
         if (!_initialized)
             return;
 
         _initialized = false;
         i2s_driver_install(_i2sPort, &_config, 0, NULL);
+    }
+
+    void I2sSpeaker::Start()
+    {
+        i2s_start(_i2sPort);
+    }
+
+    void I2sSpeaker::Stop()
+    {
+        i2s_stop(_i2sPort);
     }
 
 }

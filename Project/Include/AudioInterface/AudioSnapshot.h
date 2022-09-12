@@ -39,7 +39,15 @@ public:
     uint32_t Read(int16_t* buffer, size_t len)
     {
         if (!IsBufferStillValid())
+        {
+            printf("Audio Buffer is no longer valid\n");
             return 0;
+        }
+        else if (_audioBuffer.Used() == 0)
+        {
+            //  printf("Audio Buffer is empty\n");
+            return 0;
+        }
         return _audioBuffer.Read(buffer, len);
     }
 
@@ -52,6 +60,9 @@ public:
         // std::memcpy(this, &other, sizeof(AudioSnapshot));
         this->_audioBuffer = other._audioBuffer;
         this->_timeLimit = other._timeLimit;
+        
+        // printf("AudioSnapshot::operator=\n");
+        // this->_audioBuffer.Print();
         return *this;
     }
 

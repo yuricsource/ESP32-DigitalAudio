@@ -25,6 +25,8 @@ bool AudioCircularBuffer::GetSnapshot(AudioSnapshot* audio)
     if (audio == nullptr)
         return false;
 
+    printf("_audioCircularBuffer.Used() : %d\n", _audioCircularBuffer.Used());
+
     AudioSnapshot temp(_audioCircularBuffer);
     *audio = temp;
     
@@ -41,14 +43,17 @@ bool AudioCircularBuffer::GetSnapshot(AudioSnapshot* audio)
     //     printf("%d ", audioP[i]);
     // }
     // printf("\n\nmemcmp(audio, &temp, sizeof(AudioSnapshot) %d \n\n", memcmp(audio, &temp, sizeof(AudioSnapshot)));
-    return memcmp(audio, &temp, sizeof(AudioSnapshot)) == 0;
+    
+    _audioCircularBuffer.Print();
+    
+    return true;
 }
 
 bool AudioCircularBuffer::GetSnapshot(CircularBuffer<int16_t>* buffer)
 {
     if (buffer == nullptr)
         return false;
-    
+    // printf("_audioCircularBuffer.Used() : %d\n", _audioCircularBuffer.Used());
     *buffer = _audioCircularBuffer;
 
     return memcmp(buffer, &_audioCircularBuffer, sizeof(_audioCircularBuffer)) == 0;
@@ -61,8 +66,10 @@ void AudioCircularBuffer::FeedAudio(int16_t* buffer, size_t len)
 
      if (_audioCircularBuffer.Free() < len)
          _audioCircularBuffer.Skip(len - _audioCircularBuffer.Free());
-
+    
     _audioCircularBuffer.Write(buffer, len);
+    // printf("FeedAudio.Used() : %d\n", _audioCircularBuffer.Used());
+    // _audioCircularBuffer.Print();
 }
 
 AudioCircularBuffer& AudioCircularBuffer::Instance()

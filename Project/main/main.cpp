@@ -2,6 +2,7 @@
 #include "ApplicationMgr.h"
 #include "ticks.hpp"
 #include "StatusMgr.h"
+#include "AudioCircularBuffer.h"
 
 using Status::StatusMgr;
 using Hal::TimeLimit;
@@ -21,11 +22,13 @@ void app_main()
 	StatusMgr statusMgr;
 
 	// Start Applications
-    appMgr.Instance()->GetAI().Start(1);
+    appMgr.Instance()->GetAI().Start();
     appMgr.Instance()->GetMenu().Start();
     appMgr.Instance()->GetInputScan().Start();
     appMgr.Instance()->GetAudioAnalyzer().Start();
     TimeLimit timerDisplayStatus = {};
+    AudioInterfaces::AudioCircularBuffer::Instance();
+    
     for(;;)
     {
         vTaskDelay(cpp_freertos::Ticks::MsToTicks(1000));

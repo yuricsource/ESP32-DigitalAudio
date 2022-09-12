@@ -127,12 +127,18 @@ T CircularBuffer<T>::operator[](int index)
 template <typename T>
 CircularBuffer<T>& CircularBuffer<T>::operator=(const CircularBuffer<T>& other)
 {
-	// Guard self assignment
-	if (this == &other)
-		return *this;
-		
 	std::memcpy(this, &other, sizeof(CircularBuffer<T>));
 	return *this;
+}
+
+template <typename T>
+void CircularBuffer<T>::Print()
+{
+	printf("_used : %d\n",(uint32_t)this->_used);
+	printf("_size: %d\n",(uint32_t)this->_size);
+	printf("_read: %d\n",(uint32_t)this->_read);
+	printf("_write: %d\n",(uint32_t)this->_write);
+	printf("_buffer: %d\n",(uint32_t)this->_buffer);
 }
 
 template <typename T>
@@ -165,11 +171,6 @@ unsigned int CircularBuffer<T>::ReadPart(T *data, unsigned int len)
 	return maxLen;
 }
 
-template class CircularBuffer<char>;
-template class CircularBuffer<uint8_t>;
-template class CircularBuffer<uint16_t>;
 template class CircularBuffer<int16_t>;
-template class CircularBuffer<char *>;
-template class CircularBuffer<uint64_t>;
 
 } // namespace Utilities

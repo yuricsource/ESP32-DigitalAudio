@@ -6,10 +6,13 @@
 #include "ticks.hpp"
 #include "ApplicationMgr.h"
 #include "AudioCircularBuffer.h"
+#include "TimeLimit.h"
 
 namespace Applications
 {
 using cpp_freertos::Ticks;
+using Hal::TimeLimit;
+using AudioInterfaces::AudioCircularBuffer;
 
 AudioAnalyzer::AudioAnalyzer() : cpp_freertos::Thread("AUDASVC", configAISVC_STACK_DEPTH, 3)
 {
@@ -32,24 +35,28 @@ void AudioAnalyzer::Run()
     MenuService* displayTask = &Applications::ApplicationMgr::Instance()->GetMenu();
     AIService* aiService = &Applications::ApplicationMgr::Instance()->GetAI();
 
+    // Trigger timer
+    TimeLimit triggerTimeLimit = {};
     Logger::LogInfo(Logger::LogSource::Audio, "CORE %d | Audio Analyzer Service Started", GetCore());
  
-    auto audioBuffer = AudioInterfaces::AudioCircularBuffer::Instance();
-
     for(;;)
     {
         Delay(Ticks::MsToTicks(10));
         uint16_t read = _mic->GetAudioBuffer(_tempAudioBuffer, TempBufferSize);
         displayTask->DisplayAudio(_tempAudioBuffer, read);
 
-        if (detectTrigger(_tempAudioBuffer, read))
+        if (triggerTimeLimit.IsTimeUp(1000) && detectTrigger(_tempAudioBuffer, read))
         {
+            triggerTimeLimit.Reset();
             Logger::LogInfo(Logger::LogSource::Audio, "Trigger Detected");
             aiService->GetAudioSnapshot();
+            AudioInterfaces::AudioSnapshot temp;
+            //AudioInterfaces::AudioCircularBuffer::Instance().GetSnapshot(&temp);
         }
         
-        audioBuffer.FeedAudio(_tempAudioBuffer, read);
-
+        AudioInterfaces::AudioCircularBuffer::Instance().FeedAudio(_tempAudioBuffer, read);
+        // Logger::LogInfo(Logger::LogSource::Audio, "audioBuffer used:%d", audioBuffer;
+ 
     }
 }
 

@@ -90,8 +90,6 @@ public:
 	// Copying the pointers
 	CircularBuffer<T>& operator=(const CircularBuffer<T>& other);
 
-	void Print();
-
 protected:
 	bool _internalBuffer;
 	unsigned int _size;

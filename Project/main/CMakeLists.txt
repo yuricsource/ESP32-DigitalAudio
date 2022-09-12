@@ -9,6 +9,8 @@ set(COMPONENT_SRCDIRS   ". ../FreeRTOS/c++/Source \
                         ../Source/TensorFlow \
                         ../Source/Status \
                         ../Source/Configuration \
+                        ../Include/TensorFlow/kissfft \
+                        ../Include/TensorFlow/kissfft/tools \
                         ../Source/AudioInterface")
 
 set(COMPONENT_ADD_INCLUDEDIRS   ". ../FreeRTOS/c++/Source/include \
@@ -17,6 +19,8 @@ set(COMPONENT_ADD_INCLUDEDIRS   ". ../FreeRTOS/c++/Source/include \
                                 ../Include/Applications \
                                 ../Include/Utils \
                                 ../Include/TensorFlow \
+                                ../Include/TensorFlow/kissfft \
+                                ../Include/TensorFlow/kissfft/tools \
                                 ../Include/Status \
                                 ../include/Configuration \
                                 ../include/Common \

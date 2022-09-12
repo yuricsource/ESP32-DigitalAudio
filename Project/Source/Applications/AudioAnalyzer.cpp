@@ -48,15 +48,10 @@ void AudioAnalyzer::Run()
         if (triggerTimeLimit.IsTimeUp(1000) && detectTrigger(_tempAudioBuffer, read))
         {
             triggerTimeLimit.Reset();
-            Logger::LogInfo(Logger::LogSource::Audio, "Trigger Detected");
+            // Logger::LogInfo(Logger::LogSource::Audio, "Trigger Detected");
             aiService->GetAudioSnapshot();
-            AudioInterfaces::AudioSnapshot temp;
-            //AudioInterfaces::AudioCircularBuffer::Instance().GetSnapshot(&temp);
         }
-        
         AudioInterfaces::AudioCircularBuffer::Instance().FeedAudio(_tempAudioBuffer, read);
-        // Logger::LogInfo(Logger::LogSource::Audio, "audioBuffer used:%d", audioBuffer;
- 
     }
 }
 

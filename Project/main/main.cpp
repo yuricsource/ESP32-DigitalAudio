@@ -22,12 +22,11 @@ void app_main()
 	StatusMgr statusMgr;
 
 	// Start Applications
-    appMgr.Instance()->GetAI().Start();
+    appMgr.Instance()->GetAI().Start(1);
     appMgr.Instance()->GetMenu().Start();
     appMgr.Instance()->GetInputScan().Start();
     appMgr.Instance()->GetAudioAnalyzer().Start();
     TimeLimit timerDisplayStatus = {};
-    AudioInterfaces::AudioCircularBuffer::Instance();
     
     for(;;)
     {

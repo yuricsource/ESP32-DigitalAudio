@@ -132,16 +132,6 @@ CircularBuffer<T>& CircularBuffer<T>::operator=(const CircularBuffer<T>& other)
 }
 
 template <typename T>
-void CircularBuffer<T>::Print()
-{
-	printf("_used : %d\n",(uint32_t)this->_used);
-	printf("_size: %d\n",(uint32_t)this->_size);
-	printf("_read: %d\n",(uint32_t)this->_read);
-	printf("_write: %d\n",(uint32_t)this->_write);
-	printf("_buffer: %d\n",(uint32_t)this->_buffer);
-}
-
-template <typename T>
 unsigned int CircularBuffer<T>::Skip(unsigned int len)
 {
 	len = std::min(len, Used());

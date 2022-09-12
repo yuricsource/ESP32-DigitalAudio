@@ -7,6 +7,9 @@
 #include "AudioSnapshot.h"
 #include "AudioCircularBuffer.h"
 #include "I2sSpeaker.h"
+#include "AudioProcessor.h"
+
+// #define SPEAKER_BUFFER_TEST
 
 namespace Applications
 {
@@ -17,7 +20,7 @@ using AudioInterfaces::AudioSnapshot;
 using AudioInterfaces::AudioCircularBuffer;
 
 AIService::AIService() : cpp_freertos::Thread("AISVC", configAISVC_STACK_DEPTH, 3),
-_audioTrigger(4, sizeof(AudioSnapshot))
+_audioTrigger(4, sizeof(AudioSnapshot)), _neural(converted_model_tflite)
 {
 }
 
@@ -27,23 +30,35 @@ void AIService::Run()
     DebugAssertMessage(true, "This is a example of assert message");
     AudioSnapshot snapshot;
     size_t audioPlayedSize = 0;
+    AudioProcessor audioProcessor(SampleRate, WindowSize, StepSize, PoolingSize);
     for(;;)
     {
         // Waits until a trigger happens
         if (_audioTrigger.Dequeue(&snapshot, Ticks::MsToTicks(5000)) == false)
 			continue;
-        Logger::LogInfo(Logger::LogSource::AI, "Trigger Received");
-        int16_t length = 16000;
-        static constexpr uint16_t bufferSize = 128;
-        static int16_t bufferTemp[bufferSize] = {};
+        // Logger::LogInfo(Logger::LogSource::AI, "Trigger Received");
         
         // Wait at least one second to copy one second buffer
         while (!snapshot.IsBufferReady(1000))
         {
             vTaskDelay(10);
         }
-          
 
+        snapshot.Read(_audioTempBuffer, LocalBufferSize);
+        float *input_buffer = _neural.getInputBuffer();
+	    audioProcessor.get_spectrogram((int16_t*)_audioTempBuffer, input_buffer);
+			
+        float output = 0;
+        output = _neural.predict();
+        if (output > 0.3)
+            Logger::LogInfo(Logger::LogSource::AI, "[%d] ->>> That is my name! \\o/", (int)(output * 100));
+        else
+            Logger::LogInfo(Logger::LogSource::AI, "[%d] That is not me! :(", (int)(output * 100));
+
+#ifdef SPEAKER_BUFFER_TEST
+        int16_t length = 16000;
+        static constexpr uint16_t bufferSize = 128;
+        static int16_t bufferTemp[bufferSize] = {};
         Hardware::Instance()->GetI2sSpeaker().Start();
         while(length > 0)
         {
@@ -51,10 +66,11 @@ void AIService::Run()
             if (read == 0)
                 break;
             length = length - read; 
-            // Logger::LogInfo(Logger::LogSource::AI, "length: %d, read:%d",length, read);
             Hardware::Instance()->GetI2sSpeaker().Play(bufferTemp, bufferSize * sizeof(int16_t), &audioPlayedSize);
         }
         Hardware::Instance()->GetI2sSpeaker().Stop();
+#endif
+
     }
 }
 

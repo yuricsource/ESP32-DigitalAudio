@@ -7,6 +7,8 @@
 #include "TimeLimit.h"
 #include "Logger.h"
 #include "queue.hpp"
+#include "NeuralNetwork.h"
+#include "Model.h"
 
 namespace Applications
 {
@@ -22,7 +24,15 @@ public:
     AIService();
     void GetAudioSnapshot();
 private:
+    static constexpr uint16_t WindowSize = 320;
+	static constexpr uint8_t StepSize = 160;
+	static constexpr uint8_t PoolingSize = 6;
+	static constexpr uint16_t LocalBufferSize = 16000;
+	static constexpr uint16_t SampleRate = 16000;
     Queue _audioTrigger;
+    NeuralNetwork _neural;
+    int16_t _audioTempBuffer[LocalBufferSize] = {};
+   
 
 protected:
     void Run() override;

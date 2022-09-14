@@ -21,7 +21,7 @@ _audioDisplayBuffer(DisplayBufferSize)
 
 void MenuService::Run()
 {
-    Logger::LogInfo(Logger::LogSource::Menu, "CORE %d | Menu Service Started", GetCore());
+    Logger::LogInfo(Logger::LogSource::Menu, "CORE %d | Menu Service Started. [%d]", GetCore(), sizeof(MenuService));
     DebugAssertMessage(true, "This is a example of assert message");
     for(;;) 
     {

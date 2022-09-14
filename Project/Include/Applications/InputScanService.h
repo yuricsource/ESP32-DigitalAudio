@@ -36,5 +36,5 @@ private:
     /// @brief	Hide Move assignment operator.
     InputScanService &operator=(InputScanService &&) = delete;
 };
-
+static_assert(sizeof(InputScanService) == 48, "Wrong Size, compilation problem.");
 } // namespace Applications

@@ -29,6 +29,7 @@ private:
 	static constexpr uint8_t PoolingSize = 6;
 	static constexpr uint16_t LocalBufferSize = 16000;
 	static constexpr uint16_t SampleRate = 16000;
+    static constexpr uint8_t QueueLength = 6;
     Queue _audioTrigger;
     NeuralNetwork _neural;
     int16_t _audioTempBuffer[LocalBufferSize] = {};
@@ -49,5 +50,5 @@ private:
     /// @brief	Hide Move assignment operator.
     AIService &operator=(AIService &&) = delete;
 };
-
+static_assert(sizeof(AIService) == 32084, "Wrong Size, compilation problem.");
 } // namespace Applications

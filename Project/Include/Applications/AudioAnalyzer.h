@@ -22,8 +22,8 @@ class AudioAnalyzer : public cpp_freertos::Thread
 public:
     AudioAnalyzer();
 private:
-    static constexpr uint16_t TempBufferSize = 1024;
-    static constexpr int16_t ThresholdLevel = std::numeric_limits<int16_t>::max() / 256;
+    static constexpr uint16_t TempBufferSize = 512;
+    static constexpr int16_t ThresholdLevel = std::numeric_limits<int16_t>::max() / 512;
     DigitalMicrophone* _mic;
 
     bool detectTrigger(int16_t* buffer, size_t bufferSize);
@@ -44,5 +44,5 @@ private:
     /// @brief	Hide Move assignment operator.
     AudioAnalyzer &operator=(AudioAnalyzer &&) = delete;
 };
-
+static_assert(sizeof(AudioAnalyzer) == 1076, "Wrong Size, compilation problem.");
 } // namespace Applications

@@ -20,13 +20,13 @@ using AudioInterfaces::AudioSnapshot;
 using AudioInterfaces::AudioCircularBuffer;
 
 AIService::AIService() : cpp_freertos::Thread("AISVC", configAISVC_STACK_DEPTH, 3),
-_audioTrigger(4, sizeof(AudioSnapshot)), _neural(converted_model_tflite)
+_audioTrigger(QueueLength, sizeof(AudioSnapshot)), _neural(converted_model_tflite)
 {
 }
 
 void AIService::Run()
 {
-    Logger::LogInfo(Logger::LogSource::AI, "CORE %d | AI Service Started", GetCore());
+    Logger::LogInfo(Logger::LogSource::AI, "CORE %d | AI Service Started. [%d]", GetCore(), sizeof(AIService));
     DebugAssertMessage(true, "This is a example of assert message");
     AudioSnapshot snapshot;
     size_t audioPlayedSize = 0;
@@ -43,8 +43,10 @@ void AIService::Run()
         {
             vTaskDelay(10);
         }
-
+        Logger::LogInfo(Logger::LogSource::AI, "Trigger Received");
         snapshot.Read(_audioTempBuffer, LocalBufferSize);
+
+        // Testing
         float *input_buffer = _neural.getInputBuffer();
 	    audioProcessor.get_spectrogram((int16_t*)_audioTempBuffer, input_buffer);
 			
@@ -53,7 +55,23 @@ void AIService::Run()
         if (output > 0.3)
             Logger::LogInfo(Logger::LogSource::AI, "[%d] ->>> That is my name! \\o/", (int)(output * 100));
         else
-            Logger::LogInfo(Logger::LogSource::AI, "[%d] That is not me! :(", (int)(output * 100));
+        {
+            // Adding a gain and testing again
+            for (uint16_t i = 0 ; i < LocalBufferSize; i ++)
+            {
+                _audioTempBuffer[i] *= 10;
+            }
+            // Testing
+            float *input_buffer = _neural.getInputBuffer();
+            audioProcessor.get_spectrogram((int16_t*)_audioTempBuffer, input_buffer);
+                
+            float output = 0;
+            output = _neural.predict();
+            if (output > 0.3)
+                Logger::LogInfo(Logger::LogSource::AI, "2[%d] ->>> That is my name! \\o/", (int)(output * 100));
+            else
+                Logger::LogInfo(Logger::LogSource::AI, "[%d] That is not me! :(", (int)(output * 100));
+        }    
 
 #ifdef SPEAKER_BUFFER_TEST
         int16_t length = 16000;
@@ -70,7 +88,6 @@ void AIService::Run()
         }
         Hardware::Instance()->GetI2sSpeaker().Stop();
 #endif
-
     }
 }
 

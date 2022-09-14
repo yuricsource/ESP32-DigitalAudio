@@ -37,7 +37,7 @@ void AudioAnalyzer::Run()
 
     // Trigger timer
     TimeLimit triggerTimeLimit = {};
-    Logger::LogInfo(Logger::LogSource::Audio, "CORE %d | Audio Analyzer Service Started", GetCore());
+    Logger::LogInfo(Logger::LogSource::Audio, "CORE %d | Audio Analyzer Service Started. [%d]", GetCore(), sizeof(AudioAnalyzer));
  
     for(;;)
     {
@@ -45,7 +45,7 @@ void AudioAnalyzer::Run()
         uint16_t read = _mic->GetAudioBuffer(_tempAudioBuffer, TempBufferSize);
         displayTask->DisplayAudio(_tempAudioBuffer, read);
 
-        if (triggerTimeLimit.IsTimeUp(1000) && detectTrigger(_tempAudioBuffer, read))
+        if (triggerTimeLimit.IsTimeUp(200) && detectTrigger(_tempAudioBuffer, read))
         {
             triggerTimeLimit.Reset();
             // Logger::LogInfo(Logger::LogSource::Audio, "Trigger Detected");

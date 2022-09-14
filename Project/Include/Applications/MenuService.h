@@ -50,5 +50,5 @@ private:
     /// @brief	Hide Move assignment operator.
     MenuService &operator=(MenuService &&) = delete;
 };
-
+static_assert(sizeof(MenuService) == 80, "Wrong Size, compilation problem.");
 } // namespace Applications

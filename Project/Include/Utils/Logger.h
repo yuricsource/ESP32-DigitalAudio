@@ -21,6 +21,7 @@ public:
 		AI,
 		Input,
 		Audio,
+		FileSystem,
 		Unknown = 255
 	};
 

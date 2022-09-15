@@ -29,14 +29,17 @@ void AIService::Run()
     Logger::LogInfo(Logger::LogSource::AI, "CORE %d | AI Service Started. [%d]", GetCore(), sizeof(AIService));
     DebugAssertMessage(true, "This is a example of assert message");
     AudioSnapshot snapshot;
-    size_t audioPlayedSize = 0;
     AudioProcessor audioProcessor(SampleRate, WindowSize, StepSize, PoolingSize);
+
+#ifdef SPEAKER_BUFFER_TEST
+    size_t audioPlayedSize = 0;
+#endif
+
     for(;;)
     {
         // Waits until a trigger happens
         if (_audioTrigger.Dequeue(&snapshot, Ticks::MsToTicks(5000)) == false)
 			continue;
-        // Logger::LogInfo(Logger::LogSource::AI, "Trigger Received");
         
         // Wait at least one second to copy one second buffer
         while (!snapshot.IsBufferReady(1000))
@@ -52,26 +55,8 @@ void AIService::Run()
 			
         float output = 0;
         output = _neural.predict();
-        if (output > 0.3)
-            Logger::LogInfo(Logger::LogSource::AI, "[%d] ->>> That is my name! \\o/", (int)(output * 100));
-        else
-        {
-            // Adding a gain and testing again
-            for (uint16_t i = 0 ; i < LocalBufferSize; i ++)
-            {
-                _audioTempBuffer[i] *= 10;
-            }
-            // Testing
-            float *input_buffer = _neural.getInputBuffer();
-            audioProcessor.get_spectrogram((int16_t*)_audioTempBuffer, input_buffer);
-                
-            float output = 0;
-            output = _neural.predict();
-            if (output > 0.3)
-                Logger::LogInfo(Logger::LogSource::AI, "2[%d] ->>> That is my name! \\o/", (int)(output * 100));
-            else
-                Logger::LogInfo(Logger::LogSource::AI, "[%d] That is not me! :(", (int)(output * 100));
-        }    
+        if (output > 0.6)
+            Logger::LogInfo(Logger::LogSource::AI, "[%d] Key word detected.", (int)(output * 100));  
 
 #ifdef SPEAKER_BUFFER_TEST
         int16_t length = 16000;

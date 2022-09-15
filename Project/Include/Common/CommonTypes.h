@@ -27,6 +27,12 @@ enum class ProtocolType : uint8_t
     Mqtt
 };
 
+enum class PartitionTypes : uint8_t
+{
+    Spiffs,
+    Sdcard
+};
+
 using std::array;
 
 static constexpr uint8_t IpLength = 64;

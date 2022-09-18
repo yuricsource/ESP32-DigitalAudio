@@ -5,6 +5,7 @@
 #include "AIService.h"
 #include "InputScanService.h"
 #include "AudioAnalyzer.h"
+#include "AudioPlayer.h"
 
 namespace Applications
 {
@@ -27,6 +28,7 @@ public:
     AIService& GetAI() {return *_ai;}
     InputScanService& GetInputScan() {return *_inputScan;}
     AudioAnalyzer& GetAudioAnalyzer() {return *_audioAnalyzer;}
+    AudioPlayer& GetAudioPlayer() {return *_audioPlayer;}
 
 private:
     static ApplicationMgr *_applications;
@@ -34,6 +36,7 @@ private:
     AIService *_ai;
     InputScanService *_inputScan;
     AudioAnalyzer *_audioAnalyzer;
+    AudioPlayer *_audioPlayer;
     
     // Allocate all the tasks
     void initialize();

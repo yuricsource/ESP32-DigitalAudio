@@ -22,6 +22,7 @@ public:
 		Input,
 		Audio,
 		FileSystem,
+		Player,
 		Unknown = 255
 	};
 

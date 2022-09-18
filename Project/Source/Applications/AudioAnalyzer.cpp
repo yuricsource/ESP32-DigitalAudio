@@ -14,7 +14,7 @@ using cpp_freertos::Ticks;
 using Hal::TimeLimit;
 using AudioInterfaces::AudioCircularBuffer;
 
-AudioAnalyzer::AudioAnalyzer() : cpp_freertos::Thread("AUDASVC", configAISVC_STACK_DEPTH, 3)
+AudioAnalyzer::AudioAnalyzer() : cpp_freertos::Thread("AUDASVC", configAUDIOSVC_STACK_DEPTH, 3)
 {
     _mic = &Hardware::Instance()->GetDigitalMic();
 }

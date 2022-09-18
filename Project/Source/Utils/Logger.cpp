@@ -25,7 +25,7 @@ unsigned char const severityInfoLen = 1;
 char const *severityError = "E";
 unsigned char const severityErrorLen = 1;
 
-Logger::LogInfos typeInfos[7] =
+Logger::LogInfos typeInfos[8] =
 {
 	{"SYSTEM", 6},
 	{" HAL  ", 6},
@@ -33,7 +33,8 @@ Logger::LogInfos typeInfos[7] =
 	{"  AI  ", 6},
 	{"INPUT ", 6},
 	{"AUDIO ", 6},
-	{"FATFS ", 6}
+	{"FATFS ", 6},
+	{"PLAYER", 6}
 };
 
 void Logger::LogInfo(const char *format, ...)

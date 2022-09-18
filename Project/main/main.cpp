@@ -29,6 +29,7 @@ void app_main()
     appMgr.Instance()->GetMenu().Start();
     appMgr.Instance()->GetInputScan().Start();
     appMgr.Instance()->GetAudioAnalyzer().Start();
+    appMgr.Instance()->GetAudioPlayer().Start();
 
     // Initialize SPIFFS
     FatFS::Initialize(PartitionTypes::Spiffs); 

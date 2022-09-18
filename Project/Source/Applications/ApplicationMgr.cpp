@@ -24,6 +24,7 @@ void ApplicationMgr::initialize()
     _ai = new AIService();
     _inputScan = new InputScanService();
     _audioAnalyzer = new AudioAnalyzer();
+    _audioPlayer = new AudioPlayer();
 }
 
 } // namespace Applications

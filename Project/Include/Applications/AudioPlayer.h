@@ -17,6 +17,8 @@ class AudioPlayer : public cpp_freertos::Thread
 public:
     AudioPlayer();
 private:
+    static constexpr uint16_t BufferSize = 128;
+    bool playAudioFile(const char* audioFilePath, uint8_t volue = 100);
 
 protected:
     void Run() override;

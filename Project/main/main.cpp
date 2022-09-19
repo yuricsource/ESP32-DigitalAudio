@@ -24,19 +24,19 @@ void app_main()
     // Initialize Status Manager
 	StatusMgr statusMgr;
 
-	// Start Applications
-    appMgr.Instance()->GetAI().Start(1);
-    appMgr.Instance()->GetMenu().Start();
-    appMgr.Instance()->GetInputScan().Start();
-    appMgr.Instance()->GetAudioAnalyzer().Start();
-    appMgr.Instance()->GetAudioPlayer().Start();
-
     // Initialize SPIFFS
     FatFS::Initialize(PartitionTypes::Spiffs); 
     Logger::LogInfo(Logger::LogSource::System, 
         "Partition SPIFFS Initialized Size: %d, Free:%d", 
         FatFS::GetTotalSpace(PartitionTypes::Spiffs),
         FatFS::GetFreeSpace(PartitionTypes::Spiffs));
+        
+	// Start Applications
+    appMgr.Instance()->GetAI().Start(1);
+    appMgr.Instance()->GetMenu().Start();
+    appMgr.Instance()->GetInputScan().Start();
+    appMgr.Instance()->GetAudioAnalyzer().Start();
+    appMgr.Instance()->GetAudioPlayer().Start();
     
     TimeLimit timerDisplayStatus = {};
     for(;;)

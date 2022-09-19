@@ -27,7 +27,12 @@ typedef struct
     // uint8_t bytes[]; // Remainder of wave file is bytes
 } WavHeader;
 
-WavReader::WavReader(const char *fileName)
+WavReader::WavReader()
+{
+
+}
+
+bool WavReader::Open(const char *fileName)
 {
     bool validFile = true;
     _file = fopen(fileName, "r");
@@ -35,7 +40,7 @@ WavReader::WavReader(const char *fileName)
     if (!_file)
     {
         Logger::LogError(Logger::LogSource::System, "File not found %s", fileName);
-        return;
+        return false;
     }
     
     // Read the WAV header
@@ -58,6 +63,12 @@ WavReader::WavReader(const char *fileName)
     if (!validFile && _file != nullptr)
         fclose(_file);
 
+    return validFile;
+}
+
+WavReader::WavReader(const char *fileName)
+{
+  Open(fileName);
 }
 
 WavReader::~WavReader()
@@ -68,8 +79,20 @@ WavReader::~WavReader()
 
 void WavReader::Reset()
 {
+    if (_file == nullptr)
+        return;
+    _offset = 44;
     // Seek to the start of the wav data
-    fseek(_file, 44, SEEK_SET);
+    fseek(_file, _offset, SEEK_SET);
+}
+
+void WavReader::seek(uint32_t offset)
+{
+    if (_file == nullptr)
+        return;
+    _offset = offset;
+
+    fseek(_file, _offset, SEEK_SET);
 }
 
 bool WavReader::Available()

@@ -7,10 +7,12 @@
 #include "TimeLimit.h"
 #include "Logger.h"
 #include "CircularBuffer.h"
+#include "AudioRequest.h"
 
 namespace Applications
 {
 using Utilities::Logger;
+using AudioInterfaces::AudioRequest;
 
 class AudioPlayer : public cpp_freertos::Thread
 {
@@ -18,7 +20,7 @@ public:
     AudioPlayer();
 private:
     static constexpr uint16_t BufferSize = 128;
-    bool playAudioFile(const char* audioFilePath, uint8_t volue = 100);
+    bool playAudioFile(AudioRequest& audioRequest, uint8_t volume = 100);
 
 protected:
     void Run() override;

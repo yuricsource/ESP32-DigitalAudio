@@ -19,20 +19,15 @@ AudioPlayer::AudioPlayer() : cpp_freertos::Thread("PLYASVC", configPLAYERSVC_STA
 {  
 }
 
-bool AudioPlayer::playAudioFile(const char* audioFilePath, uint8_t volume)
+bool AudioPlayer::playAudioFile(AudioRequest& audioRequest, uint8_t volume)
 {
-    WavReader file(audioFilePath);
-
-    if (!file.Available())
-        return false;
-
     int16_t buffer[BufferSize] = {};
     Hal::I2sSpeaker& speaker = Hal::Hardware::Instance()->GetI2sSpeaker();
     
     speaker.Start();
     for(;;)
     {
-        size_t read = file.Read(buffer, BufferSize);
+        size_t read = audioRequest.Read(buffer, BufferSize);
         if (read == 0)
             break;
 
@@ -54,7 +49,13 @@ void AudioPlayer::Run()
         GetCore(), sizeof(AudioPlayer));
 
     Delay(Ticks::MsToTicks(100));
-    playAudioFile("/spiffs/ready.wav", 50);
+    {
+        AudioRequest audioRequest ("/spiffs/ready.wav");
+        // audioRequest.RepeatTime(5000);
+        // audioRequest.RepeatCount(20);
+        playAudioFile(audioRequest, 10);
+    }
+
 
     for(;;)
     {

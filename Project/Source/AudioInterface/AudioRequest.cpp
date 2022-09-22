@@ -8,23 +8,12 @@ using Utilities::Logger;
 
 AudioRequest::AudioRequest(const char* fileName)
 {
-    uint16_t len = strlen(fileName);
-    if (len + 1 > _fileName.size() || len == 0)
+    if (!_audioFile.Open(fileName))
     {
         Logger::LogError(Logger::LogSource::Audio, 
-            "AudioRequest | Invalid File Name. Size:%d", len);
-        return;
-    }    
-
-    memcpy(_fileName.data(), fileName, len + 1);
-
-    if (!_audioFile.Open(_fileName.data()))
-    {
-        Logger::LogError(Logger::LogSource::Audio, 
-            "AudioRequest | File %s doesn't exist", _fileName.data());
+            "AudioRequest | File %s doesn't exist", fileName);
+        return ;
     }
-
-
 }
 
 void AudioRequest::RepeatTime(uint32_t mSeconds)

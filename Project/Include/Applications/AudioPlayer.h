@@ -8,20 +8,32 @@
 #include "Logger.h"
 #include "CircularBuffer.h"
 #include "AudioRequest.h"
+#include "queue.hpp"
 
 namespace Applications
 {
 using Utilities::Logger;
 using AudioInterfaces::AudioRequest;
+using cpp_freertos::Queue;
 
 class AudioPlayer : public cpp_freertos::Thread
 {
 public:
     AudioPlayer();
+    void PlayFile(const char* fileName, uint8_t volume = 100);
 private:
-    static constexpr uint16_t BufferSize = 128;
-    bool playAudioFile(AudioRequest& audioRequest, uint8_t volume = 100);
 
+    class AudioFileRequest
+    {
+        public:
+        Common::Name Name;
+        uint8_t Volume;
+    };
+
+    static constexpr uint16_t BufferSize = 128;
+    bool playAudioFile(Common::Name& audioRequest, uint8_t volume = 100);
+    static constexpr uint8_t QueueLength = 6;
+    Queue _audioList;
 protected:
     void Run() override;
 
@@ -38,5 +50,5 @@ private:
     /// @brief	Hide Move assignment operator.
     AudioPlayer &operator=(AudioPlayer &&) = delete;
 };
-static_assert(sizeof(AudioPlayer) == 48, "Wrong Size, compilation problem.");
+static_assert(sizeof(AudioPlayer) == 56, "Wrong Size, compilation problem.");
 } // namespace Applications

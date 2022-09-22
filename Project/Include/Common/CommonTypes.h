@@ -35,6 +35,10 @@ enum class PartitionTypes : uint8_t
 
 using std::array;
 
+static constexpr uint8_t NameLenght = 32;
+using Name = array<char, NameLenght>;
+static_assert(sizeof(Name) == 32, "Array has invalid size.");
+
 static constexpr uint8_t IpLength = 64;
 using IpAddress = array<char, IpLength>;
 static_assert(sizeof(IpAddress) == 64, "Array has invalid size.");

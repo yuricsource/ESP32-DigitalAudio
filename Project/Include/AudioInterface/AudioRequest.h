@@ -4,6 +4,8 @@
 #include <array>
 #include "TimeLimit.h"
 #include "WavReader.h"
+#include "CommonTypes.h"
+
 namespace AudioInterfaces 
 {
 
@@ -20,9 +22,7 @@ public:
     size_t Read(int16_t* buffer, size_t len);
 
 private:
-    static constexpr uint8_t FileNameSize = 30;
     WavReader _audioFile;
-    std::array<char, FileNameSize> _fileName;
     bool _repeat = false;
     uint8_t _count = 0;
     TimeLimit _timeLimit = {};

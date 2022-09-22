@@ -8,6 +8,7 @@
 #include "AudioCircularBuffer.h"
 #include "I2sSpeaker.h"
 #include "AudioProcessor.h"
+#include "ApplicationMgr.h"
 
 // #define SPEAKER_BUFFER_TEST
 
@@ -55,24 +56,11 @@ void AIService::Run()
 			
         float output = 0;
         output = _neural.predict();
-        if (output > 0.6)
-            Logger::LogInfo(Logger::LogSource::AI, "[%d] Key word detected.", (int)(output * 100));  
-
-#ifdef SPEAKER_BUFFER_TEST
-        int16_t length = 16000;
-        static constexpr uint16_t bufferSize = 128;
-        static int16_t bufferTemp[bufferSize] = {};
-        Hardware::Instance()->GetI2sSpeaker().Start();
-        while(length > 0)
+        if (output > 0.8)
         {
-            int read = snapshot.Read(bufferTemp, bufferSize);
-            if (read == 0)
-                break;
-            length = length - read; 
-            Hardware::Instance()->GetI2sSpeaker().Play(bufferTemp, bufferSize * sizeof(int16_t), &audioPlayedSize);
-        }
-        Hardware::Instance()->GetI2sSpeaker().Stop();
-#endif
+            Logger::LogInfo(Logger::LogSource::AI, "[%d] Key word detected.", (int)(output * 100));
+            ApplicationMgr::Instance()->GetAudioPlayer().PlayFile("/spiffs/ready.wav", 30);
+        }      
     }
 }
 

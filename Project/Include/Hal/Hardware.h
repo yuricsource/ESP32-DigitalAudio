@@ -16,6 +16,7 @@
 #include "Gpio.h"
 #include "Analog.h"
 #include "DeviceInput.h"
+#include "SdCard.h"
 
 namespace Hal
 {
@@ -41,6 +42,7 @@ public:
 	Gpio &GetGpio() { return _gpio; }
 	Adc &GetAdc() { return _adc; }
 	DeviceInput& GetDeviceInput() { return _deviceInput; }
+	SdCard& GetSdCard() { return _sdCard; }
 	
 	uint32_t GetSystemClockBase()
 	{
@@ -63,6 +65,7 @@ private:
 	DigitalMicrophone _digitalMic;
 	I2sSpeaker _i2sSpk;
 	ST7789Display _display;
+	SdCard _sdCard;
 
 
 private:

@@ -1,0 +1,10 @@
+
+Peripheral			Pins (GPIO)
+
+I2S Digital			2, 13, 26
+I2S Speaker			27, 12, 25
+Display				19, 18, 5, 16, 23, 4
+User Button 1 		35
+User Button 2		0
+Battery Level		34
+SD Card				17, 22, 21, 15

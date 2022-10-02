@@ -77,5 +77,7 @@
         "set": "cpp",
         "unordered_map": "cpp",
         "xhash": "cpp"
-    }
+    },
+    "idf.adapterTargetName": "esp32",
+    "idf.flashType": "UART"
 }

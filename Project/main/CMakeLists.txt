@@ -12,7 +12,7 @@ set(COMPONENT_SRCDIRS   ". ../FreeRTOS/c++/Source \
                         ../Include/TensorFlow/kissfft \
                         ../Include/TensorFlow/kissfft/tools \
                         ../Source/AudioInterface \
-                        ../Source/FatFs")
+                        ../Source/FatFS")
 
 set(COMPONENT_ADD_INCLUDEDIRS   ". ../FreeRTOS/c++/Source/include \
                                 ../FreeRTOS \
@@ -23,10 +23,10 @@ set(COMPONENT_ADD_INCLUDEDIRS   ". ../FreeRTOS/c++/Source/include \
                                 ../Include/TensorFlow/kissfft \
                                 ../Include/TensorFlow/kissfft/tools \
                                 ../Include/Status \
-                                ../include/Configuration \
-                                ../include/Common \
-                                ../include/AudioInterface \
-                                ../include/FatFS")
+                                ../Include/Configuration \
+                                ../Include/Common \
+                                ../Include/AudioInterface \
+                                ../Include/FatFS")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
                     -DAUDIO_PROJECT=1 \

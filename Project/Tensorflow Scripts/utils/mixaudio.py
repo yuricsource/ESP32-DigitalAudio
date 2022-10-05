@@ -1,11 +1,11 @@
 import numpy
-import Log as l;
+import utils.Log as l;
 
 # tensor = tensor.numpy() + np.resize(audio1[0:].numpy(), [16000,1])
 def sum(list_a, list_b, max_sample):
     c = None
     if len(list_a) < max_sample and len(list_b) < max_sample:
-        c = numpy.zeros(max_sample, list_a.dtype)
+        c = numpy.zeros((max_sample, 1), list_a.dtype)
     else:
         if (len(list_a) > max_sample):
             list_a = list_a[:max_sample]
@@ -15,7 +15,8 @@ def sum(list_a, list_b, max_sample):
         if (c is None):
             c = list_b.copy()
         else:
-            c[:len(list_b)] += list_b
+            b = len(list_b)
+            c[:b] += list_b
         c[:len(list_a)] += list_a
     else:
         if (c is None):
@@ -59,8 +60,8 @@ def __UnitTest(list_a_size, list_b_size, max_array_size):
     if (result):
         l.logGreen("Method sum - Test PASSED!")
 
-__UnitTest(20, 10, 30)
-__UnitTest(2, 50, 100)
-__UnitTest(122, 50, 100)
-__UnitTest(120, 50, 20)
-__UnitTest(120, 150, 20)
+# __UnitTest(20, 10, 30)
+# __UnitTest(2, 50, 100)
+# __UnitTest(122, 50, 100)
+# __UnitTest(120, 50, 20)
+# __UnitTest(120, 150, 20)

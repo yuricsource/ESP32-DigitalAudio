@@ -15,9 +15,11 @@ class bcolors:
 def logWarn (*arg) :
     print( bcolors.WARNING,"[", "%.4f"%(time.time() - start_time), "] Warn |", *arg, bcolors.ENDC)
 
+def logGreen (*arg) :
+    print( bcolors.OKGREEN,"[", "%.4f"%(time.time() - start_time), "]", *arg, bcolors.ENDC)
 
 def logError (*arg) :
-    print(bcolors.FAIL, "[", "%.4f"%(time.time() - start_time), "] Error|", *arg, bcolors.ENDC)
+    print(bcolors.FAIL, "[", "%.4f"%(time.time() - start_time), "] Error |", *arg, bcolors.ENDC)
 
 def log (*arg) :
     print(bcolors.BOLD, "[", "%.4f"%(time.time() - start_time), "] Log  |", *arg, bcolors.ENDC)

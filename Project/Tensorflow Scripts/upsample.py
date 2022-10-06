@@ -7,12 +7,21 @@ from tensorflow.io import gfile
 from scipy.io.wavfile import write
 import utils.mixaudio as maux
 import shutil
+import matplotlib.pyplot as plt
+import random
 
 SPEECH_DATA='Tensorflow Scripts/speech_data'
 
 background_folder = 'background_noise'
 output_folder = SPEECH_DATA + '/upsample'
 samplerate = 16000
+
+# get the location of the voice
+def get_voice_position(audio, noise_floor):
+    for x in range(0, len(audio)):
+        if (audio[x] > noise_floor):
+            return audio[x:]
+    return audio
 
 # get all the files in a directory
 def get_files(word):
@@ -28,12 +37,27 @@ def process_word(word):
     x = 0
     for name in file_names:
         # print (name)
+        file = tfio.audio.AudioIOTensor(name)[0:].numpy().copy()
         for bg_noise in background_noise_samples:
-            x = x + 1
-            data = maux.sum(tfio.audio.AudioIOTensor(name)[0:].numpy(), tfio.audio.AudioIOTensor(bg_noise)[0:].numpy(), samplerate)
-            print(output_folder + "/" + name + bg_noise)
-            write(output_folder + "/" + str(x) + ".wav", samplerate, data)
+            for loop in range(0, 5):
+                x = x + 1
+                audio = get_voice_position(tfio.audio.AudioIOTensor(name)[0:].numpy(), 500)
+                audio = maux.resize_random(audio, samplerate)
+                noise = tfio.audio.AudioIOTensor(bg_noise)
 
+                rd = random.randrange(len(noise) - samplerate)
+
+                data = maux.sum(audio, noise[rd:].numpy(), samplerate)
+                # print("File Name:" + name)
+                # print("Noise Name:" + bg_noise)
+                write(output_folder + "/" + str(x) + ".wav", samplerate, data)
+
+                # # Ploting two audios in the same plot
+                # plt.figure()
+                # plt.title(bg_noise)
+                # plt.plot(data, 'b')
+                # plt.plot(audio, 'g')
+                # plt.show()
 
 if os.path.exists(output_folder):
     shutil.rmtree(output_folder)
